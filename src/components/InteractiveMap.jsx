@@ -1,6 +1,5 @@
-
 import { Icon } from "leaflet/src/layer/marker/Icon";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 // import "../../node_modules/leaflet/dist/leaflet";
 // import Leaflet from "leaflet";
 import viking from "../image/viking_PNG10.png";
@@ -29,13 +28,12 @@ function InteractiveMap() {
     popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
   });
 
-
   return (
     <div className="App">
       <MapContainer
-        style={{ height: "400px" }}
-        center={[50, 0]}
-        zoom={4}
+        style={{ height: "600px" }}
+        center={[47.3, -1]}
+        zoom={5}
         scrollWheelZoom={false}
       >
         <TileLayer
