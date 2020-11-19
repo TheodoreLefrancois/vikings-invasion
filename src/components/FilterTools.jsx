@@ -181,8 +181,7 @@ export default function Filtertools() {
             return (
               <div key={network.id} className="inline-block">
                 <Button
-                  className="col-12 border-0 rounded-circle bg-transparent"
-                  color="primary"
+                  className="col-12 btn btn-info"
                   id={network.name}
                   style={{ marginBottom: "1rem" }}
                   onClick={() => isCheck(network.slug)}
