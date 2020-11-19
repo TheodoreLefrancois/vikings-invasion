@@ -4,18 +4,20 @@ import Filtertools from "./FilterTools";
 
 function DestParis() {
   return (
-    <Container>
+    <Container className="text-center">
       <Row>
-        <Col>
-          <Filtertools />
+        <Col sm={{ size: "auto", offset: 1 }}>
+          <h3>Here are the lists of the differents network of Paris </h3>
         </Col>
-        <Col>
-          <h2>Here are the plans of Paris</h2>
-        </Col>
-        <Col>
+        <Col sm={{ size: "auto", offset: 1 }}>
           <Link to="/">
-            <Button color="warning">Go back Home</Button>
+            <Button outline color="danger">
+              Go back Home
+            </Button>
           </Link>
+        </Col>
+        <Col sm={{ size: "auto", offset: 1 }}>
+          <Filtertools />
         </Col>
       </Row>
     </Container>
