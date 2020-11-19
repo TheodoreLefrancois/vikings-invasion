@@ -1,4 +1,3 @@
-import Filtertools from "./components/FilterTools";
 import InteractiveMap from "./components/InteractiveMap";
 import Navigation from "./components/navigation";
 
@@ -7,7 +6,6 @@ function App() {
     <div className="App">
       <Navigation />
       <InteractiveMap />
-      <Filtertools />
     </div>
   );
 }
