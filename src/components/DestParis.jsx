@@ -6,7 +6,7 @@ import InteractiveMap from "./InteractiveMap";
 function DestParis() {
   return (
     <Container className="w-100">
-      <Row>
+      <Row className="py-3">
         <Col>
           <h2>
             <strong>Here are the plans of Paris</strong>
