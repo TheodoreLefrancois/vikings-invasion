@@ -9,13 +9,20 @@ function DestParis() {
       <Row className="py-3">
         <Col>
           <h2>
-            <strong>Here are the plans of Paris</strong>
+            <strong>
+              Here are the lists of the differents network of Paris{" "}
+            </strong>
           </h2>
         </Col>
-        <Col>
+        <Col sm={{ size: "auto", offset: 1 }}>
           <Link to="/">
-            <Button color="warning">Go back Home</Button>
+            <Button outline color="danger">
+              Go back Home
+            </Button>
           </Link>
+        </Col>
+        <Col sm={{ size: "auto", offset: 1 }}>
+          <Filtertools />
         </Col>
       </Row>
       <Row>
