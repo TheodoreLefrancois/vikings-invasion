@@ -3,13 +3,16 @@ import { Container, Row, Col, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 function Navigation() {
   return (
-    <Container>
+    <Container className="text-center">
       <Row>
-        <Col>
+        <Col sm={{ size: "auto", offset: 1 }}>
           <img src={RaidAdvisor} alt="RaidAdvisor logo"></img>
-
+        </Col>
+        <Col sm={{ size: "auto", offset: 1 }}>
           <Link to="/destParis">
-            <Button color="warning">PARIS</Button>
+            <Button outline color="danger">
+              PARIS
+            </Button>
           </Link>
         </Col>
       </Row>
