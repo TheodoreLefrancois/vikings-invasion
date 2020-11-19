@@ -31,9 +31,9 @@ function InteractiveMap() {
   return (
     <div className="App">
       <MapContainer
-        style={{ height: "400px" }}
-        center={[50, 0]}
-        zoom={4}
+        style={{ height: "600px" }}
+        center={[47.3, -1]}
+        zoom={5}
         scrollWheelZoom={false}
       >
         <TileLayer
