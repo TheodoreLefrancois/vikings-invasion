@@ -62,6 +62,17 @@ export function getParisMissionsByStation(lineId, stationId, directionId) {
     return axiosRequest(url);
 }
 
+// *******************************************************
+//      BORDEAUX
+// *******************************************************
+
+export function getBordeauxTrams() {
+    const url =
+        "/api/records/1.0/search/?dataset=tb_arret_p&q=&facet=ville&facet=codepost&facet=nature&facet=lignedes&facet=mobilie1&facet=reseau&refine.ville=BORDEAUX&refine.reseau=TRAM&refine.codepost=33000";
+
+    return axiosRequest(url);
+}
+
 function axiosRequest(url) {
     return Axios.get(url);
 }
