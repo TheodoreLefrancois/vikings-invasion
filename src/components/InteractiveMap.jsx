@@ -1,3 +1,4 @@
+
 import { Icon } from "leaflet/src/layer/marker/Icon";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 // import "../../node_modules/leaflet/dist/leaflet";
@@ -27,6 +28,7 @@ function InteractiveMap() {
     shadowAnchor: [4, 62], // the same for the shadow
     popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
   });
+
 
   return (
     <div className="App">

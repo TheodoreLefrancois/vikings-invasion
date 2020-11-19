@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import InteractiveMap from "./components/InteractiveMap";
 import Navigation from "./components/navigation";
 
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <Navigation />
       <InteractiveMap />
+      <Footer />
     </div>
   );
 }
