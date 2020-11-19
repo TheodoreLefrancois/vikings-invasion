@@ -1,5 +1,7 @@
+import InteractiveMap from "./components/InteractiveMap";
+
 function App() {
-  return <div className="App"></div>;
+  return <InteractiveMap />;
 }
 
 export default App;
