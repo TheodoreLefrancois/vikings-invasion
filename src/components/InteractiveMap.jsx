@@ -1,7 +1,7 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 // import "../../node_modules/leaflet/dist/leaflet";
 
-function interactiveMap() {
+function InteractiveMap() {
   return (
     <div className="App">
       <MapContainer
@@ -24,4 +24,4 @@ function interactiveMap() {
   );
 }
 
-export default interactiveMap;
+export default InteractiveMap;
