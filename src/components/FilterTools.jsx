@@ -114,7 +114,7 @@ export default function Filtertools() {
               multiple
             >
               {metro.map((e) => (
-                <option>{e.name}</option>
+                <option title={e.name}>{e.name}</option>
               ))}
             </Input>
           </Col>
@@ -129,7 +129,7 @@ export default function Filtertools() {
               multiple
             >
               {bus.map((e) => (
-                <option>{e.name}</option>
+                <option title={e.name}>{e.name}</option>
               ))}
             </Input>
           </Col>
@@ -159,9 +159,7 @@ export default function Filtertools() {
               multiple
             >
               {tram.map((e) => (
-                <option>
-                  {e.index} {e.name}
-                </option>
+                <option title={e.name}>{e.name}</option>
               ))}
             </Input>
           </Col>
@@ -183,7 +181,7 @@ export default function Filtertools() {
             return (
               <div key={network.id} className="inline-block">
                 <Button
-                  className="col-1 border-0 bg-transparent"
+                  className="col-12 border-0 rounded-circle bg-transparent"
                   color="primary"
                   id={network.name}
                   style={{ marginBottom: "1rem" }}
