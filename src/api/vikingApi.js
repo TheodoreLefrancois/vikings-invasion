@@ -25,7 +25,7 @@ export function getParisLines(networtk) {
 }
 
 export function getParisLineColor(network, lineId) {
-    const url = PARIS_BASE_URL.concat(`Lines/${networks}/line/${lineId}/color`);
+    const url = PARIS_BASE_URL.concat(`Lines/${network}/line/${lineId}/color`);
 
     return axiosRequest(url);
 }
@@ -66,6 +66,7 @@ export function getParisMissionsByStation(lineId, stationId, directionId) {
 //      BORDEAUX
 // *******************************************************
 
+// tram lines
 export function getBordeauxTrams() {
     const url =
         "/api/records/1.0/search/?dataset=tb_arret_p&q=&facet=ville&facet=codepost&facet=nature&facet=lignedes&facet=mobilie1&facet=reseau&refine.ville=BORDEAUX&refine.reseau=TRAM&refine.codepost=33000";
