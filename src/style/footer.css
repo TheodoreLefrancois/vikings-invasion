@@ -1,0 +1,17 @@
+.footerMain {
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  color: white;
+}
+
+#root {
+  position: relative;
+  min-height: 100vh;
+}

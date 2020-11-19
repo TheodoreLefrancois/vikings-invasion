@@ -3,7 +3,7 @@ import {
   Button,
   Spinner,
   Jumbotron,
-  Container,
+  Col,
   UncontrolledCollapse,
   Input,
 } from "reactstrap";
@@ -39,10 +39,10 @@ export default function Filtertools() {
   if (isError) {
     return (
       <Jumbotron fluid>
-        <Container fluid>
+        <Col fluid>
           <h1 className="display-3">Oups !!!</h1>
           <p className="lead">{error.message}</p>
-        </Container>
+        </Col>
       </Jumbotron>
     );
   }
@@ -106,7 +106,7 @@ export default function Filtertools() {
     switch (elmt) {
       case "metro":
         return (
-          <Container>
+          <Col>
             <Input
               type="select"
               name="selectMulti"
@@ -114,14 +114,14 @@ export default function Filtertools() {
               multiple
             >
               {metro.map((e) => (
-                <option>{e.name}</option>
+                <option title={e.name}>{e.name}</option>
               ))}
             </Input>
-          </Container>
+          </Col>
         );
       case "bus":
         return (
-          <Container>
+          <Col>
             <Input
               type="select"
               name="selectMulti"
@@ -129,14 +129,14 @@ export default function Filtertools() {
               multiple
             >
               {bus.map((e) => (
-                <option>{e.name}</option>
+                <option title={e.name}>{e.name}</option>
               ))}
             </Input>
-          </Container>
+          </Col>
         );
       case "rer":
         return (
-          <Container>
+          <Col>
             <Input
               type="select"
               name="selectMulti"
@@ -144,14 +144,14 @@ export default function Filtertools() {
               multiple
             >
               {rer.map((e) => (
-                <option>{e.name}</option>
+                <option title={e.name}>{e.name}</option>
               ))}
             </Input>
-          </Container>
+          </Col>
         );
       case "tram":
         return (
-          <Container>
+          <Col>
             <Input
               type="select"
               name="selectMulti"
@@ -159,12 +159,10 @@ export default function Filtertools() {
               multiple
             >
               {tram.map((e) => (
-                <option>
-                  {e.index} {e.name}
-                </option>
+                <option title={e.name}>{e.name}</option>
               ))}
             </Input>
-          </Container>
+          </Col>
         );
       default:
         return "error";
@@ -181,9 +179,9 @@ export default function Filtertools() {
         <div>
           {networks.map((network) => {
             return (
-              <div key={network.id}>
+              <div key={network.id} className="inline-block">
                 <Button
-                  className="col-1 border-0 bg-transparent"
+                  className="col-12 border-0 rounded-circle bg-transparent"
                   color="primary"
                   id={network.name}
                   style={{ marginBottom: "1rem" }}
