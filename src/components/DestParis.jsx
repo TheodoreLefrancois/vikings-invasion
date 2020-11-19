@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
-import RaidAdvisor from "../image/RaidAdvisor.jpg";
+import Filtertools from "./FilterTools";
 
 function DestParis() {
   return (
     <Container>
       <Row>
         <Col>
-          <img src={RaidAdvisor} alt="Paris Plan" />
+          <Filtertools />
         </Col>
         <Col>
           <h2>Here are the plans of Paris</h2>
