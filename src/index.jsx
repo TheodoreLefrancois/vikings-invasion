@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import App from "./App";
+import "./index.css";
+import Rout from "./Router";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import "bootstrap/dist/css/bootstrap.min.css";
+import "leaflet/dist/leaflet.css";
+
+ReactDOM.render(<Rout />, document.getElementById("root"));
