@@ -4,6 +4,7 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 // import Leaflet from "leaflet";
 import viking from "../image/viking_PNG10.png";
 import cible from "../image/cible2.png";
+import glass from "../image/sunglasses_PNG95.png";
 
 function InteractiveMap() {
   // const icon = new Icon({
@@ -12,6 +13,15 @@ function InteractiveMap() {
 
   const head = new Icon({
     iconUrl: viking,
+    iconSize: [60, 50], // size of the icon
+    shadowSize: [50, 64], // size of the shadow
+    iconAnchor: [52.520007, 13.404954], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62], // the same for the shadow
+    popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+  });
+
+  const best = new Icon({
+    iconUrl: glass,
     iconSize: [60, 50], // size of the icon
     shadowSize: [50, 64], // size of the shadow
     iconAnchor: [52.520007, 13.404954], // point of the icon which will correspond to marker's location
@@ -49,7 +59,9 @@ function InteractiveMap() {
         <Marker position={[39.1167, -8.6333]} icon={head}></Marker>
         <Marker position={[51.509093, -0.094151]} icon={head}></Marker>
         <Marker position={[40.4167754, -3.3037902]} icon={head}></Marker>
-        <Marker position={[45.237789, -0.17918]} icon={victim}></Marker>
+        <Marker position={[45.537789, -0.17918]} icon={victim}></Marker>
+        <Marker position={[49.6534, 3.0488]} icon={victim}></Marker>
+        <Marker position={[43.4831519, -1.558626]} icon={best}></Marker>
       </MapContainer>
     </div>
   );
