@@ -8,9 +8,9 @@ import {
   Input,
 } from "reactstrap";
 
-import { getParisNetworks, getParisLines } from "../api/vikingApi";
+import { getParisLines } from "../api/vikingApi";
 
-export default function Filtertools() {
+export default function Filtertools(getCurrentNetworks) {
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState({});
@@ -23,11 +23,13 @@ export default function Filtertools() {
   const [checkBus, setCheckBus] = useState(false);
   const [checkRer, setCheckRer] = useState(false);
   const [checkTram, setCheckTram] = useState(false);
+  const test = { getCurrentNetworks };
+
+  console.log(test);
 
   useEffect(() => {
     try {
-      const cityNetworks = getParisNetworks();
-      setNetworks(cityNetworks);
+      setNetworks(getCurrentNetworks.getCurrentNetworks);
     } catch (err) {
       setIsError(true);
       setError(err);

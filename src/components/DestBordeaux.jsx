@@ -2,11 +2,14 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 // import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
+
+import { getBordeauxNetworks } from "../api/vikingApi";
 import Filtertools from "./FilterTools";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import Footer from "./Footer";
 
+const cityCurrentNetworks = getBordeauxNetworks();
 // icons
 // import louvre from "../image/louvre.png";
 // import ring from "../image/ring.png";
@@ -75,7 +78,7 @@ function DestBordeaux() {
         </Row>
         <Row>
           <Col>
-            <Filtertools GPSPos={GPSPos} />
+            <Filtertools getCurrentNetworks={cityCurrentNetworks} />
           </Col>
           <Col>
             <MapContainer

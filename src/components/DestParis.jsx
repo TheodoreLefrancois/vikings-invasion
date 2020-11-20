@@ -5,6 +5,7 @@ import { Button, Col, Container, Row } from "reactstrap";
 import Filtertools from "./FilterTools";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
+import { getParisNetworks } from "../api/vikingApi";
 
 // icons
 import louvre from "../image/louvre.png";
@@ -14,6 +15,10 @@ import arche from "../image/arche.png";
 import piece from "../image/piece.png";
 import liasse from "../image/liasse.png";
 import Footer from "./Footer";
+
+const cityCurrentNetworks = getParisNetworks();
+
+// console.log(cityCurrentNetworks);
 
 const louvreIcon = new Icon({
   iconUrl: louvre,
@@ -53,6 +58,7 @@ const liasseIcon = new Icon({
   iconSize: [64, 64], // size of the icon
   iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
 });
+
 function DestParis() {
   return (
     <>
@@ -72,7 +78,7 @@ function DestParis() {
         </Row>
         <Row>
           <Col>
-            <Filtertools />
+            <Filtertools getCurrentNetworks={cityCurrentNetworks} />
           </Col>
           <Col>
             <MapContainer
