@@ -18,8 +18,8 @@ function DisplayWeather({
         />
       </th>
       <th>{winddir}</th>
-      <th>{`${min}°C`}</th>
-      <th>{`${max}°C`}</th>
+      <th>{`${Math.round(min)}°C`}</th>
+      <th>{`${Math.round(max)}°C`}</th>
       <th>{`${humidity}%`}</th>
       <th>{fiability}</th>
     </tr>
