@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
-import Filtertools from "./FilterTools";
 
-import RaidAdvisor from "../image/RaidAdvisor.jpg";
+// import RaidAdvisor from "../image/RaidAdvisor.jpg";
+// import Footer from "./Footer";
+import AppContext from "../Context";
+import Filtertools from "./FilterTools";
 
 // icons
 import louvre from "../image/louvre.png";
@@ -13,7 +16,7 @@ import elyzeePalace from "../image/Elysee-Palace.png";
 import arche from "../image/arche.png";
 import piece from "../image/piece.png";
 import liasse from "../image/liasse.png";
-import Footer from "./Footer";
+import hache from "../image/hache.png";
 
 const louvreIcon = new Icon({
   iconUrl: louvre,
@@ -53,81 +56,103 @@ const liasseIcon = new Icon({
   iconSize: [64, 64], // size of the icon
   iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
 });
+
+const hacheIcon = new Icon({
+  iconUrl: hache,
+  iconSize: [64, 64], // size of the icon
+  iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
+});
+
 function DestParis() {
   // eslint-disable-next-line no-unused-vars
   const id = 615702;
+  const { lineDepartGPS, lineArriveeGPS } = useContext(AppContext);
+
   return (
-    <>
-      <Container>
-        <Row className="py-3 align-items-center">
-          <Col sm={{ size: "auto", offset: 1 }}>
-            <img src={RaidAdvisor} alt="RaidAdvisor logo"></img>
-          </Col>
-          <Col>
-            <h2>Here are the plans of Paris</h2>
-          </Col>
-          <Col>
-            <Link to="/">
-              <Button color="warning">Go back Home</Button>
-            </Link>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Filtertools />
-          </Col>
-          <Col>
-            <MapContainer
-              style={{ height: "600px", width: "800px" }}
-              center={[48.87, 2.28]}
-              zoom={13}
-              scrollWheelZoom={false}
-            >
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={[48.864824, 2.334595]} icon={louvreIcon}>
-                <Popup>
-                  Le louvre! <br /> Moulte argent et or
-                </Popup>
-              </Marker>
+    <Container>
+      <Row>
+        <Col>
+          <h2>Here are the plans of Paris</h2>
+        </Col>
+        <Col>
+          <Link to="/">
+            <Button color="warning">Go back Home</Button>
+          </Link>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Filtertools />
+        </Col>
+        <Col>
+          <MapContainer
+            style={{ height: "600px", width: "800px" }}
+            center={[48.87, 2.28]}
+            zoom={13}
+            scrollWheelZoom={false}
+          >
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[48.864824, 2.334595]} icon={louvreIcon}>
+              <Popup>
+                Le louvre! <br /> Moulte argent et or
+              </Popup>
+            </Marker>
 
-              <Marker position={[48.875, 2.33]} icon={ringIcon}>
-                <Popup>
-                  Place vendôme <br /> Joillerie
-                </Popup>
-              </Marker>
+            <Marker position={[48.875, 2.33]} icon={ringIcon}>
+              <Popup>
+                Place vendôme <br /> Joillerie
+              </Popup>
+            </Marker>
 
-              <Marker position={[48.875, 2.31]} icon={elyzeePalaceIcon}>
-                <Popup>
-                  Palais de l'Elysée <br /> Oeuvres d'art
-                </Popup>
-              </Marker>
+            <Marker position={[48.875, 2.31]} icon={elyzeePalaceIcon}>
+              <Popup>
+                Palais de l'Elysée <br /> Oeuvres d'art
+              </Popup>
+            </Marker>
 
-              <Marker position={[48.892, 2.24]} icon={archeIcon}>
-                <Popup>
-                  La grande Arche <br /> Argent
-                </Popup>
-              </Marker>
+            <Marker position={[48.892, 2.24]} icon={archeIcon}>
+              <Popup>
+                La grande Arche <br /> Argent
+              </Popup>
+            </Marker>
 
-              <Marker position={[48.85, 2.326]} icon={pieceIcon}>
-                <Popup>
-                  Banque de france <br /> Argent
-                </Popup>
-              </Marker>
+            <Marker position={[48.85, 2.326]} icon={pieceIcon}>
+              <Popup>
+                Banque de france <br /> Argent
+              </Popup>
+            </Marker>
 
-              <Marker position={[48.863, 2.276]} icon={liasseIcon}>
-                <Popup>
-                  16e Arrondissement <br /> Nobles
-                </Popup>
+            <Marker position={[48.863, 2.276]} icon={liasseIcon}>
+              <Popup>
+                16e Arrondissement <br /> Nobles
+              </Popup>
+            </Marker>
+
+            {/* Ligne Bus */}
+            {lineDepartGPS.length > 0 ? (
+              <Marker
+                position={[lineDepartGPS[1], lineDepartGPS[0]]}
+                icon={hacheIcon}
+              >
+                <Popup>Station Départ</Popup>
               </Marker>
-            </MapContainer>
-          </Col>
-        </Row>
-      </Container>
-      <Footer />
-    </>
+            ) : null}
+
+            {lineArriveeGPS.length > 0 ? (
+              <Marker
+                position={[lineArriveeGPS[1], lineArriveeGPS[0]]}
+                icon={hacheIcon}
+              >
+                <Popup>Station Arrivée</Popup>
+              </Marker>
+            ) : null}
+          </MapContainer>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
