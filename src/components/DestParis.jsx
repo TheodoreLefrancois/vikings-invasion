@@ -83,12 +83,16 @@ function DestParis() {
     const [rerAPI, setRerAPI] = useState([]);
     const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
     const id = 615702;
-    const { lineDepartGPS, lineArriveeGPS } = useContext(AppContext);
-    const [displayPage, setdisplayPage] = useState(false);
+    const {
+        lineDepartGPS,
+        lineArriveeGPS,
+        displayPage,
+        setDisplayPage,
+    } = useContext(AppContext);
     const tag = "Paris";
 
     useEffect(() => {
-        setTimeout(() => setdisplayPage(true), 2300);
+        setTimeout(() => setDisplayPage(true), 2300);
         const getDatas = async () => {
             const bus = await getParisLines("bus");
             setBusAPI(bus);
@@ -107,7 +111,6 @@ function DestParis() {
 
     return displayPage ? (
         <>
-            (
             <Container>
                 <Row className="py-2 align-items-center">
                     <Col sm={{ size: "auto", offset: 1 }}>

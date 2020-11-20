@@ -20,6 +20,7 @@ export default function Filtertools({
     display,
 }) {
     const { setLineDepartGPS, setLineArriveeGPS } = useContext(AppContext);
+
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const [error, setError] = useState({});
@@ -84,7 +85,9 @@ export default function Filtertools({
     }, [selectedLine]);
 
     const onSelectedLine = (e) => {
-        setSelectedLine(e.target.value);
+        tag !== "Bordeaux"
+            ? setSelectedLine(e.target.value)
+            : setSelectedLine("");
     };
 
     if (isError) {
@@ -178,10 +181,11 @@ export default function Filtertools({
                     name="selectMulti"
                     id="exampleSelectMulti"
                     multiple
+                    onClick={onSelectedLine}
                 >
                     {selectedNetwork.records.map((e) => (
                         <option title={e.fields.nomarret}>
-                            {e.fields.nomarret}
+                            {e.fields.nomarret}{" "}
                         </option>
                     ))}
                 </Input>
