@@ -2,7 +2,14 @@ import { useState, useContext, useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
-import { Button, Col, Container, Row, UncontrolledCollapse } from "reactstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Navbar,
+  Row,
+  UncontrolledCollapse,
+} from "reactstrap";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import { getParisNetworks } from "../api/vikingApi";
@@ -68,6 +75,7 @@ const hacheIcon = new Icon({
 
 function DestParis() {
   const [loading, setLoading] = useState(true);
+  const [isDisplay, setIsDisplay] = useState(true);
   const [busAPI, setBusAPI] = useState([]);
   const [tramAPI, setTramAPI] = useState([]);
   const [metroAPI, setMetroAPI] = useState([]);
@@ -110,8 +118,16 @@ function DestParis() {
             </Link>
           </Col>
         </Row>
-
-        <Row>
+        <Row className="py-1">
+          <Button
+            block
+            className="btn-success"
+            onClick={() => setIsDisplay(!isDisplay)}
+          >
+            <h5>{isDisplay ? "Display weather" : "Display map"}</h5>
+          </Button>
+        </Row>
+        <Row style={{ display: isDisplay ? "" : "none" }}>
           {loading ? (
             <p>Loading</p>
           ) : (
@@ -192,18 +208,18 @@ function DestParis() {
               ) : null}
             </MapContainer>
           </Col>
-          <Col>
-            <Button
-              outline
+        </Row>
+        <Row style={{ display: isDisplay ? "none" : "" }}>
+          <Col className="w-100">
+            <Navbar
+              className="text-white d-flex justify-content-center"
               color="danger"
-              id="toggler"
-              style={{ marginBottom: "1rem" }}
             >
-              Meteo
-            </Button>
-            <UncontrolledCollapse toggler="#toggler">
-              <ImportWeather id={id} />
-            </UncontrolledCollapse>
+              <h5>
+                <strong>Meteo</strong>
+              </h5>
+            </Navbar>
+            <ImportWeather id={id} />
           </Col>
         </Row>
       </Container>

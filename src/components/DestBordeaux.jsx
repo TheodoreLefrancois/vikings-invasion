@@ -73,10 +73,10 @@ const GPSPos = [44.8333, -0.5667];
 
 function DestBordeaux(props) {
   const [loading, setLoading] = useState(true);
+  const [isDisplay, setIsDisplay] = useState(true);
   const [busAPI, setBusAPI] = useState([]);
   const [tramAPI, setTramAPI] = useState([]);
   const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
-  const [isDisplay, setIsDisplay] = useState(true);
   const tag = "Bordeaux";
   const id = 580778;
 
@@ -186,8 +186,6 @@ function DestBordeaux(props) {
             <Navbar
               className="text-white d-flex justify-content-center"
               color="danger"
-              id="toggler"
-              style={{ marginBottom: "1rem" }}
             >
               <h5>
                 <strong>Meteo</strong>
