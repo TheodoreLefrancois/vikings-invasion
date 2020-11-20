@@ -9,6 +9,8 @@ import {
     Navbar,
     Row,
     UncontrolledCollapse,
+    displayPage,
+    setdisplayPage,
 } from "reactstrap";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
@@ -107,7 +109,6 @@ function DestParis() {
 
     return displayPage ? (
         <>
-            (
             <Container>
                 <Row className="py-2 align-items-center">
                     <Col sm={{ size: "auto", offset: 1 }}>
