@@ -68,21 +68,38 @@ export function getParisMissionsByStation(lineId, stationId, directionId) {
 // *******************************************************
 
 export function getBordeauxTrams() {
+<<<<<<< HEAD
+    const url =
+        "/api/records/1.0/search/?dataset=tb_arret_p&q=&facet=ville&facet=codepost&facet=nature&facet=lignedes&facet=mobilie1&facet=reseau&refine.ville=BORDEAUX&refine.reseau=TRAM&refine.codepost=33000";
+=======
     const url = BORDEAUX_BASE_URL.concat(
         "/api/records/1.0/search/?dataset=tb_arret_p&q=&facet=ville&facet=codepost&facet=nature&facet=lignedes&facet=mobilie1&facet=reseau&refine.ville=BORDEAUX&refine.reseau=TRAM&refine.codepost=33000"
     );
+>>>>>>> dev
 
     return axiosRequest(url);
 }
 
+<<<<<<< HEAD
+export function getGeolocalisation(adress) {
+    const url = "https://api-adresse.data.gouv.fr/search/?q="
+        .concat(adress)
+        .concat(" paris");
+
+=======
 export function getBordeauxBus() {
     const url = BORDEAUX_BASE_URL.concat(
         "/api/records/1.0/search/?dataset=tb_arret_p&q=&facet=ville&facet=codepost&facet=nature&facet=lignedes&facet=mobilie1&facet=reseau&refine.ville=BORDEAUX&refine.codepost=33000&refine.reseau=BUS"
     );
+>>>>>>> dev
     return axiosRequest(url);
 }
 
 function axiosRequest(url) {
+<<<<<<< HEAD
+    // console.log(url);
+=======
     console.log(url);
+>>>>>>> dev
     return axios.get(url);
 }

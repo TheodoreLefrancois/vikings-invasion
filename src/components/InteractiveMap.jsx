@@ -4,8 +4,11 @@ import { MapContainer, Marker, TileLayer } from "react-leaflet";
 // import Leaflet from "leaflet";
 import viking from "../image/viking_PNG10.png";
 import cible from "../image/cible2.png";
+<<<<<<< HEAD
+=======
 import MapLegend from "./MapLegend";
 import { Container, Jumbotron } from "reactstrap";
+>>>>>>> dev
 import glass from "../image/sunglasses_PNG95.png";
 
 function InteractiveMap() {
@@ -41,6 +44,33 @@ function InteractiveMap() {
   });
 
   return (
+<<<<<<< HEAD
+    <div className="App">
+      <MapContainer
+        style={{ height: "600px" }}
+        center={[47.3, -1]}
+        zoom={5}
+        scrollWheelZoom={false}
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        <Marker position={[52.520007, 13.404954]} icon={head}></Marker>
+        <Marker position={[44.43225, 26.10626]} icon={head}></Marker>
+        <Marker position={[52.370216, 4.895168]} icon={head}></Marker>
+        <Marker position={[41.3833, 2.1833]} icon={head}></Marker>
+        <Marker position={[50.8466, 4.3528]} icon={head}></Marker>
+        <Marker position={[39.1167, -8.6333]} icon={head}></Marker>
+        <Marker position={[51.509093, -0.094151]} icon={head}></Marker>
+        <Marker position={[40.4167754, -3.3037902]} icon={head}></Marker>
+        <Marker position={[45.537789, -0.17918]} icon={victim}></Marker>
+        <Marker position={[49.6534, 3.0488]} icon={victim}></Marker>
+        <Marker position={[43.4831519, -1.558626]} icon={best}></Marker>
+      </MapContainer>
+    </div>
+=======
     <>
       <Jumbotron fluid>
         <Container fluid>
@@ -91,6 +121,7 @@ function InteractiveMap() {
         </div>
       </div>
     </>
+>>>>>>> dev
   );
 }
 export default InteractiveMap;

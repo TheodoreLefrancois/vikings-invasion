@@ -1,7 +1,12 @@
+import { useContext } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
+
+// import RaidAdvisor from "../image/RaidAdvisor.jpg";
+// import Footer from "./Footer";
+import AppContext from "../Context";
 import Filtertools from "./FilterTools";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
@@ -13,7 +18,11 @@ import elyzeePalace from "../image/Elysee-Palace.png";
 import arche from "../image/arche.png";
 import piece from "../image/piece.png";
 import liasse from "../image/liasse.png";
+<<<<<<< HEAD
+import hache from "../image/hache.png";
+=======
 import Footer from "./Footer";
+>>>>>>> dev
 
 const louvreIcon = new Icon({
   iconUrl: louvre,
@@ -53,7 +62,53 @@ const liasseIcon = new Icon({
   iconSize: [64, 64], // size of the icon
   iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
 });
+
+const hacheIcon = new Icon({
+    iconUrl: hache,
+    iconSize: [64, 64], // size of the icon
+    iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
+});
+
 function DestParis() {
+<<<<<<< HEAD
+    const { lineDepartGPS, lineArriveeGPS } = useContext(AppContext);
+
+    return (
+        <Container>
+            <Row>
+                <Col>
+                    <h2>Here are the plans of Paris</h2>
+                </Col>
+                <Col>
+                    <Link to="/">
+                        <Button color="warning">Go back Home</Button>
+                    </Link>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Filtertools />
+                </Col>
+                <Col>
+                    <MapContainer
+                        style={{ height: "600px", width: "800px" }}
+                        center={[48.87, 2.28]}
+                        zoom={13}
+                        scrollWheelZoom={false}
+                    >
+                        <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker
+                            position={[48.864824, 2.334595]}
+                            icon={louvreIcon}
+                        >
+                            <Popup>
+                                Le louvre! <br /> Moulte argent et or
+                            </Popup>
+                        </Marker>
+=======
   return (
     <>
       <Container>
@@ -90,6 +145,7 @@ function DestParis() {
                   Le louvre! <br /> Moulte argent et or
                 </Popup>
               </Marker>
+>>>>>>> dev
 
               <Marker position={[48.875, 2.33]} icon={ringIcon}>
                 <Popup>
@@ -115,6 +171,40 @@ function DestParis() {
                 </Popup>
               </Marker>
 
+<<<<<<< HEAD
+                        <Marker position={[48.863, 2.276]} icon={liasseIcon}>
+                            <Popup>
+                                16e Arrondissement <br /> Nobles
+                            </Popup>
+                        </Marker>
+
+                        {/* Ligne Bus */}
+                        {lineDepartGPS.length > 0 ? (
+                            <Marker
+                                position={[lineDepartGPS[1], lineDepartGPS[0]]}
+                                icon={hacheIcon}
+                            >
+                                <Popup>Station Départ</Popup>
+                            </Marker>
+                        ) : null}
+
+                        {lineArriveeGPS.length > 0 ? (
+                            <Marker
+                                position={[
+                                    lineArriveeGPS[1],
+                                    lineArriveeGPS[0],
+                                ]}
+                                icon={hacheIcon}
+                            >
+                                <Popup>Station Arrivée</Popup>
+                            </Marker>
+                        ) : null}
+                    </MapContainer>
+                </Col>
+            </Row>
+        </Container>
+    );
+=======
               <Marker position={[48.863, 2.276]} icon={liasseIcon}>
                 <Popup>
                   16e Arrondissement <br /> Nobles
@@ -127,6 +217,7 @@ function DestParis() {
       <Footer />
     </>
   );
+>>>>>>> dev
 }
 
 export default DestParis;
