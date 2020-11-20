@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
@@ -6,6 +7,7 @@ import Filtertools from "./FilterTools";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import { getParisNetworks } from "../api/vikingApi";
+import { getParisLines } from "../api/vikingApi";
 
 // icons
 import louvre from "../image/louvre.png";
@@ -15,10 +17,6 @@ import arche from "../image/arche.png";
 import piece from "../image/piece.png";
 import liasse from "../image/liasse.png";
 import Footer from "./Footer";
-
-const cityCurrentNetworks = getParisNetworks();
-
-// console.log(cityCurrentNetworks);
 
 const louvreIcon = new Icon({
   iconUrl: louvre,
@@ -60,6 +58,31 @@ const liasseIcon = new Icon({
 });
 
 function DestParis() {
+  const [loading, setLoading] = useState(true);
+  const [busAPI, setBusAPI] = useState([]);
+  const [tramAPI, setTramAPI] = useState([]);
+  const [metroAPI, setMetroAPI] = useState([]);
+  const [rerAPI, setRerAPI] = useState([]);
+  const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
+  const tag = "Paris";
+
+  useEffect(() => {
+    const getDatas = async () => {
+      const bus = await getParisLines("bus");
+      setBusAPI(bus);
+      const tram = await getParisLines("tram");
+      setTramAPI(tram);
+      const metro = await getParisLines("metro");
+      setMetroAPI(metro);
+      const rer = await getParisLines("metro");
+      setRerAPI(rer);
+      const cityCurrentNetworks = getParisNetworks();
+      setNetworkStaticAPI(cityCurrentNetworks);
+      setLoading(!loading);
+    };
+    getDatas();
+  }, []);
+
   return (
     <>
       <Container>
@@ -76,10 +99,22 @@ function DestParis() {
             </Link>
           </Col>
         </Row>
+
         <Row>
-          <Col>
-            <Filtertools getCurrentNetworks={cityCurrentNetworks} />
-          </Col>
+          {loading ? (
+            <p>Loading</p>
+          ) : (
+            <Col>
+              <Filtertools
+                getCurrentNetworks={networkStaticAPI}
+                busAPI={busAPI}
+                tramAPI={tramAPI}
+                metroAPI={metroAPI}
+                rerAPI={rerAPI}
+                tag={tag}
+              />
+            </Col>
+          )}
           <Col>
             <MapContainer
               style={{ height: "600px", width: "800px" }}

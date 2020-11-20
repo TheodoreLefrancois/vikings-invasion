@@ -3,13 +3,17 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
 
-import { getBordeauxNetworks } from "../api/vikingApi";
+import {
+  getBordeauxBus,
+  getBordeauxNetworks,
+  getBordeauxTrams,
+} from "../api/vikingApi";
 import Filtertools from "./FilterTools";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import Footer from "./Footer";
+import { useEffect, useState } from "react";
 
-const cityCurrentNetworks = getBordeauxNetworks();
 // icons
 // import louvre from "../image/louvre.png";
 // import ring from "../image/ring.png";
@@ -60,6 +64,25 @@ const cityCurrentNetworks = getBordeauxNetworks();
 const GPSPos = [44.8333, -0.5667];
 
 function DestBordeaux() {
+  const [loading, setLoading] = useState(true);
+  const [busAPI, setBusAPI] = useState([]);
+  const [tramAPI, setTramAPI] = useState([]);
+  const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
+  const tag = "Bordeaux";
+
+  useEffect(() => {
+    const getDatas = async () => {
+      const bus = await getBordeauxBus();
+      setBusAPI(bus);
+      const tram = await getBordeauxTrams();
+      setTramAPI(tram);
+      const cityCurrentNetworks = getBordeauxNetworks();
+      setNetworkStaticAPI(cityCurrentNetworks);
+      setLoading(!loading);
+    };
+    getDatas();
+  }, []);
+
   return (
     <>
       <Container>
@@ -77,9 +100,18 @@ function DestBordeaux() {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Filtertools getCurrentNetworks={cityCurrentNetworks} />
-          </Col>
+          {loading ? (
+            <p>Loading</p>
+          ) : (
+            <Col>
+              <Filtertools
+                getCurrentNetworks={networkStaticAPI}
+                busAPI={busAPI}
+                tramAPI={tramAPI}
+                tag={tag}
+              />
+            </Col>
+          )}
           <Col>
             <MapContainer
               style={{ height: "600px", width: "800px" }}

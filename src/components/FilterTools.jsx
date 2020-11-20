@@ -8,9 +8,14 @@ import {
   Input,
 } from "reactstrap";
 
-import { getParisLines } from "../api/vikingApi";
-
-export default function Filtertools(getCurrentNetworks) {
+export default function Filtertools({
+  getCurrentNetworks,
+  busAPI,
+  tramAPI,
+  metroAPI,
+  rerAPI,
+  tag,
+}) {
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState({});
@@ -19,17 +24,15 @@ export default function Filtertools(getCurrentNetworks) {
   const [bus, setBus] = useState([]);
   const [rer, setRer] = useState([]);
   const [tram, setTram] = useState([]);
-  const [checkMetro, setCheckMetro] = useState(false);
-  const [checkBus, setCheckBus] = useState(false);
-  const [checkRer, setCheckRer] = useState(false);
-  const [checkTram, setCheckTram] = useState(false);
-  const test = { getCurrentNetworks };
-
-  console.log(test);
+  const [checkMetro, setCheckMetro] = useState(true);
+  const [checkBus, setCheckBus] = useState(true);
+  const [checkRer, setCheckRer] = useState(true);
+  const [checkTram, setCheckTram] = useState(true);
 
   useEffect(() => {
     try {
-      setNetworks(getCurrentNetworks.getCurrentNetworks);
+      setNetworks(getCurrentNetworks);
+      setLoading(!loading);
     } catch (err) {
       setIsError(true);
       setError(err);
@@ -68,104 +71,146 @@ export default function Filtertools(getCurrentNetworks) {
     }
   }
 
-  if (checkMetro) {
-    const getDatas = async () => {
-      const currentMetro = await getParisLines("metro");
-      setMetro(currentMetro.data);
+  if (checkMetro && tag === "Paris") {
+    function getDatas() {
+      setMetro(metroAPI.data);
       setCheckMetro(!checkMetro);
-    };
+    }
     getDatas();
   }
 
   if (checkBus) {
-    const getDatas = async () => {
-      const currentBus = await getParisLines("bus");
-      setBus(currentBus.data);
+    function getDatas() {
+      setBus(busAPI.data);
       setCheckBus(!checkBus);
-    };
+    }
     getDatas();
   }
 
-  if (checkRer) {
-    const getDatas = async () => {
-      const currentReR = await getParisLines("rer");
-      setRer(currentReR.data);
+  if (checkRer && tag === "Paris") {
+    function getDatas() {
+      setRer(rerAPI.data);
       setCheckRer(!checkRer);
-    };
+    }
     getDatas();
   }
 
   if (checkTram) {
-    const getDatas = async () => {
-      const currentTram = await getParisLines("tram");
-      setTram(currentTram.data);
+    function getDatas() {
+      setTram(tramAPI.data);
       setCheckTram(!checkTram);
-    };
+    }
     getDatas();
   }
 
   function isReturn(elmt) {
     switch (elmt) {
       case "metro":
-        return (
-          <Col>
-            <Input
-              type="select"
-              name="selectMulti"
-              id="exampleSelectMulti"
-              multiple
-            >
-              {metro.map((e) => (
-                <option title={e.name}>{e.name}</option>
-              ))}
-            </Input>
-          </Col>
-        );
+        if (tag === "Paris") {
+          return (
+            <Col>
+              <Input
+                type="select"
+                name="selectMulti"
+                id="exampleSelectMulti"
+                multiple
+              >
+                {metro.map((e) => (
+                  <option title={e.name}>{e.name}</option>
+                ))}
+              </Input>
+            </Col>
+          );
+        }
+        break;
       case "bus":
-        return (
-          <Col>
-            <Input
-              type="select"
-              name="selectMulti"
-              id="exampleSelectMulti"
-              multiple
-            >
-              {bus.map((e) => (
-                <option title={e.name}>{e.name}</option>
-              ))}
-            </Input>
-          </Col>
-        );
+        if (tag === "Paris") {
+          return (
+            <Col>
+              <Input
+                type="select"
+                name="selectMulti"
+                id="exampleSelectMulti"
+                multiple
+              >
+                {bus.map((e) => (
+                  <option title={e.name}>{e.name}</option>
+                ))}
+              </Input>
+            </Col>
+          );
+        } else if (tag === "Bordeaux") {
+          return (
+            <Col>
+              <Input
+                type="select"
+                name="selectMulti"
+                id="exampleSelectMulti"
+                multiple
+              >
+                {bus.records.map((e) => (
+                  <option title={e.fields.nomarret}>{e.fields.nomarret}</option>
+                ))}
+              </Input>
+            </Col>
+          );
+        }
+        break;
       case "rer":
-        return (
-          <Col>
-            <Input
-              type="select"
-              name="selectMulti"
-              id="exampleSelectMulti"
-              multiple
-            >
-              {rer.map((e) => (
-                <option title={e.name}>{e.name}</option>
-              ))}
-            </Input>
-          </Col>
-        );
+        if (tag === "Paris") {
+          return (
+            <Col>
+              <Input
+                type="select"
+                name="selectMulti"
+                id="exampleSelectMulti"
+                multiple
+              >
+                {rer.map((e) => (
+                  <option title={e.name}>{e.name}</option>
+                ))}
+              </Input>
+            </Col>
+          );
+        }
+        break;
       case "tram":
-        return (
+        if (tag === "Paris") {
+          return (
+            <Col>
+              <Input
+                type="select"
+                name="selectMulti"
+                id="exampleSelectMulti"
+                multiple
+              >
+                {tram.map((e) => (
+                  <option title={e.name}>{e.name}</option>
+                ))}
+              </Input>
+            </Col>
+          );
+        } else if (tag === "Bordeaux") {
+          return (
+            <Col>
+              <Input
+                type="select"
+                name="selectMulti"
+                id="exampleSelectMulti"
+                multiple
+              >
+                {tram.records.map((e) => (
+                  <option title={e.fields.nomarret}>{e.fields.nomarret}</option>
+                ))}
+              </Input>
+            </Col>
+          );
+        } else {
           <Col>
-            <Input
-              type="select"
-              name="selectMulti"
-              id="exampleSelectMulti"
-              multiple
-            >
-              {tram.map((e) => (
-                <option title={e.name}>{e.name}</option>
-              ))}
-            </Input>
-          </Col>
-        );
+            <h2>OUPS !!! an error as occured ...</h2>
+          </Col>;
+        }
+        break;
       default:
         return "error";
     }
