@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
-import { Button, Col, Container, Row } from "reactstrap";
+import { Button, Col, Container, Row, UncontrolledCollapse } from "reactstrap";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import { getParisNetworks } from "../api/vikingApi";
@@ -19,6 +19,7 @@ import arche from "../image/arche.png";
 import piece from "../image/piece.png";
 import liasse from "../image/liasse.png";
 import hache from "../image/hache.png";
+import ImportWeather from "./ImportWeather";
 
 const louvreIcon = new Icon({
   iconUrl: louvre,
@@ -72,7 +73,6 @@ function DestParis() {
   const [metroAPI, setMetroAPI] = useState([]);
   const [rerAPI, setRerAPI] = useState([]);
   const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const id = 615702;
   const { lineDepartGPS, lineArriveeGPS } = useContext(AppContext);
   const tag = "Paris";
@@ -191,6 +191,19 @@ function DestParis() {
                 </Marker>
               ) : null}
             </MapContainer>
+          </Col>
+          <Col>
+            <Button
+              outline
+              color="danger"
+              id="toggler"
+              style={{ marginBottom: "1rem" }}
+            >
+              Meteo
+            </Button>
+            <UncontrolledCollapse toggler="#toggler">
+              <ImportWeather id={id} />
+            </UncontrolledCollapse>
           </Col>
         </Row>
       </Container>
