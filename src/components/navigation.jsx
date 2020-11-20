@@ -14,9 +14,11 @@ function Navigation() {
               PARIS
             </Button>
           </Link>
-          <Button outline color="danger">
-            BORDEAUX
-          </Button>
+          <Link to="/destBordeaux">
+            <Button outline color="danger">
+              BORDEAUX
+            </Button>
+          </Link>
         </Col>
       </Row>
     </Container>
