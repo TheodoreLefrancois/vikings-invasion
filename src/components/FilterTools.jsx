@@ -179,7 +179,7 @@ export default function Filtertools() {
         <div>
           {networks.map((network) => {
             return (
-              <div key={network.id} className="inline-block">
+              <div key={network.id} className="inline-block py-1">
                 <Button
                   className="col-12 btn btn-info"
                   id={network.name}
