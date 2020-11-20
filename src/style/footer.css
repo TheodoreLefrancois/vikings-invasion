@@ -12,6 +12,6 @@ p {
 }
 
 #root {
-  position: relative;
-  min-height: 100vh;
+  position: bottom relative;
+  /* min-height: 100vh; */
 }
