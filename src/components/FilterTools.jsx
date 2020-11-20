@@ -17,6 +17,7 @@ export default function Filtertools({
   metroAPI,
   rerAPI,
   tag,
+  display,
 }) {
   const { setLineDepartGPS, setLineArriveeGPS } = useContext(AppContext);
   const [loading, setLoading] = useState(true);

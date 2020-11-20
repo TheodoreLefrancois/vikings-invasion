@@ -1,7 +1,14 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 // import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
-import { Button, Col, Container, Row, UncontrolledCollapse } from "reactstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Navbar,
+  Row,
+  UncontrolledCollapse,
+} from "reactstrap";
 import ImportWeather from "./ImportWeather";
 
 import {
@@ -66,6 +73,7 @@ const GPSPos = [44.8333, -0.5667];
 
 function DestBordeaux(props) {
   const [loading, setLoading] = useState(true);
+  const [isDisplay, setIsDisplay] = useState(true);
   const [busAPI, setBusAPI] = useState([]);
   const [tramAPI, setTramAPI] = useState([]);
   const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
@@ -88,7 +96,7 @@ function DestBordeaux(props) {
   return (
     <>
       <Container>
-        <Row className="py-3 align-items-center justify-content-center">
+        <Row className="py-2 align-items-center justify-content-center">
           <Col className="col-3" sm={{ size: "auto" }}>
             <img src={RaidAdvisor} alt="RaidAdvisor logo"></img>
           </Col>
@@ -101,7 +109,16 @@ function DestBordeaux(props) {
             </Link>
           </Col>
         </Row>
-        <Row>
+        <Row className="py-1">
+          <Button
+            block
+            className="btn-success"
+            onClick={() => setIsDisplay(!isDisplay)}
+          >
+            <h5>{isDisplay ? "Display weather" : "Display map"}</h5>
+          </Button>
+        </Row>
+        <Row style={{ display: isDisplay ? "" : "none" }}>
           {loading ? (
             <p>Loading</p>
           ) : (
@@ -110,6 +127,7 @@ function DestBordeaux(props) {
                 getCurrentNetworks={networkStaticAPI}
                 busAPI={busAPI}
                 tramAPI={tramAPI}
+                display={isDisplay}
                 tag={tag}
               />
             </Col>
@@ -163,20 +181,19 @@ function DestBordeaux(props) {
             </MapContainer>
           </Col>
         </Row>
-        <Link to="/">
-          <Button color="warning">Go back Home</Button>
-        </Link>
-        <Button
-          outline
-          color="danger"
-          id="toggler"
-          style={{ marginBottom: "1rem" }}
-        >
-          Meteo
-        </Button>
-        <UncontrolledCollapse toggler="#toggler">
-          <ImportWeather id={id} />
-        </UncontrolledCollapse>
+        <Row style={{ display: isDisplay ? "none" : "" }}>
+          <Col className="w-100">
+            <Navbar
+              className="text-white d-flex justify-content-center"
+              color="danger"
+            >
+              <h5>
+                <strong>Meteo</strong>
+              </h5>
+            </Navbar>
+            <ImportWeather id={id} />
+          </Col>
+        </Row>
       </Container>
       <Footer />
     </>
