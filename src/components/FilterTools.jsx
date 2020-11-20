@@ -83,6 +83,7 @@ export default function Filtertools() {
             </Jumbotron>
         );
     }
+<<<<<<< HEAD
 
     function isCheck(elmt) {
         switch (elmt) {
@@ -247,4 +248,42 @@ export default function Filtertools() {
             )}
         </>
     );
+=======
+  }
+
+  return (
+    <>
+      {loading ? (
+        <div>
+          <Spinner type="grow" color="primary" className="m-5" />
+        </div>
+      ) : (
+        <div>
+          {networks.map((network) => {
+            return (
+              <div key={network.id} className="inline-block py-1">
+                <Button
+                  className="col-12 btn btn-info"
+                  id={network.name}
+                  style={{ marginBottom: "1rem" }}
+                  onClick={() => isCheck(network.slug)}
+                >
+                  <img
+                    src={network.image}
+                    alt={network.name}
+                    className="rounded-circle"
+                    style={{ height: "50px" }}
+                  />
+                </Button>
+                <UncontrolledCollapse toggler={`#${network.name}`}>
+                  {isReturn(network.slug)}
+                </UncontrolledCollapse>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
+>>>>>>> dev
 }
