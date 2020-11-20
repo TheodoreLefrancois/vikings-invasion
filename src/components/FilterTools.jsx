@@ -24,10 +24,10 @@ export default function Filtertools({
     const [isError, setIsError] = useState(false);
     const [error, setError] = useState({});
     const [networks, setNetworks] = useState([]);
-    const [metro, setMetro] = useState([]);
-    const [bus, setBus] = useState([]);
-    const [rer, setRer] = useState([]);
-    const [tram, setTram] = useState([]);
+    // const [metro, setMetro] = useState([]);
+    // const [bus, setBus] = useState([]);
+    // const [rer, setRer] = useState([]);
+    // const [tram, setTram] = useState([]);
     const [checkMetro, setCheckMetro] = useState(true);
     const [checkBus, setCheckBus] = useState(true);
     const [checkRer, setCheckRer] = useState(true);
@@ -39,6 +39,7 @@ export default function Filtertools({
     useEffect(() => {
         try {
             setNetworks(getCurrentNetworks);
+            console.log(getCurrentNetworks);
             if (tag === "Paris") {
                 setCheckMetro(!checkMetro);
                 setCheckBus(!checkBus);
@@ -99,12 +100,14 @@ export default function Filtertools({
     }
 
     function isCheck(elmt) {
+        console.log(elmt);
         switch (elmt) {
             case "metro":
                 setCheckMetro(!checkMetro);
-                setSelectedNetwork(metroAPI.data);
+                setSelectedNetwork(metroAPI.data, "bus");
                 break;
             case "bus":
+                console.log(busAPI.data);
                 setCheckBus(!checkBus);
                 setSelectedNetwork(busAPI.data);
 
@@ -115,6 +118,7 @@ export default function Filtertools({
 
                 break;
             case "tram":
+                console.log(tramAPI.data);
                 setCheckTram(!checkTram);
                 setSelectedNetwork(tramAPI.data);
 
@@ -126,7 +130,7 @@ export default function Filtertools({
 
     if (checkMetro && tag === "Paris") {
         function getDatas() {
-            setMetro(metroAPI.data);
+            // setMetro(metroAPI.data);
             setCheckMetro(!checkMetro);
         }
         getDatas();
@@ -134,7 +138,7 @@ export default function Filtertools({
 
     if (checkBus) {
         function getDatas() {
-            setBus(busAPI.data);
+            // setBus(busAPI.data);
             setCheckBus(!checkBus);
         }
         getDatas();
@@ -142,7 +146,7 @@ export default function Filtertools({
 
     if (checkRer && tag === "Paris") {
         function getDatas() {
-            setRer(rerAPI.data);
+            // setRer(rerAPI.data);
             setCheckRer(!checkRer);
         }
         getDatas();
@@ -150,13 +154,14 @@ export default function Filtertools({
 
     if (checkTram) {
         function getDatas() {
-            setTram(tramAPI.data);
+            // setTram(tramAPI.data);
             setCheckTram(!checkTram);
         }
         getDatas();
     }
 
     function isReturn(elmt) {
+        console.log(selectedNetwork);
         return selectedNetwork.length === 0 ? null : (
             <Col>
                 <Input
