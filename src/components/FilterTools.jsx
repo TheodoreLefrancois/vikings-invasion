@@ -312,7 +312,7 @@ export default function Filtertools({
                                 <Button
                                     className="col-12 border-0 btn-info"
                                     color="primary"
-                                    // id="toggleSelect"
+                                    id={network.name}
                                     style={{ marginBottom: "1rem" }}
                                     onClick={() => isCheck(network.slug)}
                                 >
@@ -323,6 +323,12 @@ export default function Filtertools({
                                         style={{ height: "50px" }}
                                     />
                                 </Button>
+                                <UncontrolledCollapse
+                                    toggler={`#${network.name}`}
+                                >
+                                    {isReturn("")}
+                                </UncontrolledCollapse>
+
                                 {/* <UncontrolledCollapse
                                     toggler={`#${network.name}`}
                                 >
@@ -331,10 +337,6 @@ export default function Filtertools({
                             </div>
                         );
                     })}
-                    <div>{isReturn("")}</div>
-                    {/* <UncontrolledCollapse toggler={`#toggleSelect`}>
-                        {isReturn("")}
-                    </UncontrolledCollapse> */}
                 </div>
             )}
         </>

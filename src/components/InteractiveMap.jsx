@@ -57,11 +57,16 @@ function InteractiveMap() {
                 </Container>
             </Jumbotron>
 
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                }}
+            >
                 <div style={{ width: "60%" }} className="App">
                     <MapContainer
                         style={{ height: "500px" }}
-                        center={[47.3, 5]}
+                        center={[46, 10]}
                         zoom={5}
                         scrollWheelZoom={false}
                     >

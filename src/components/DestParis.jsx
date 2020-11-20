@@ -27,6 +27,7 @@ import piece from "../image/piece.png";
 import liasse from "../image/liasse.png";
 import hache from "../image/hache.png";
 import ImportWeather from "./ImportWeather";
+import ProgressHack from "./ProgressHack";
 
 const louvreIcon = new Icon({
     iconUrl: louvre,
@@ -87,7 +88,7 @@ function DestParis() {
     const tag = "Paris";
 
     useEffect(() => {
-        setTimeout(setdisplayPage(true), 2000);
+        setTimeout(() => setdisplayPage(true), 2300);
         const getDatas = async () => {
             const bus = await getParisLines("bus");
             setBusAPI(bus);
@@ -104,8 +105,9 @@ function DestParis() {
         getDatas();
     }, []);
 
-    return (
+    return displayPage ? (
         <>
+            (
             <Container>
                 <Row className="py-2 align-items-center">
                     <Col sm={{ size: "auto", offset: 1 }}>
@@ -242,6 +244,8 @@ function DestParis() {
             </Container>
             <Footer />
         </>
+    ) : (
+        <ProgressHack />
     );
 }
 
