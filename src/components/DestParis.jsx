@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
-import Filtertools from "./FilterTools";
 
 // import RaidAdvisor from "../image/RaidAdvisor.jpg";
+// import Footer from "./Footer";
+import AppContext from "../Context";
+import Filtertools from "./FilterTools";
 
 // icons
 import louvre from "../image/louvre.png";
@@ -13,9 +16,7 @@ import elyzeePalace from "../image/Elysee-Palace.png";
 import arche from "../image/arche.png";
 import piece from "../image/piece.png";
 import liasse from "../image/liasse.png";
-import { useContext } from "react";
-import AppContext from "../Context";
-// import Footer from "./Footer";
+import hache from "../image/hache.png";
 
 const louvreIcon = new Icon({
     iconUrl: louvre,
@@ -55,6 +56,13 @@ const liasseIcon = new Icon({
     iconSize: [64, 64], // size of the icon
     iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
 });
+
+const hacheIcon = new Icon({
+    iconUrl: hache,
+    iconSize: [64, 64], // size of the icon
+    iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
+});
+
 function DestParis() {
     const { lineDepartGPS, lineArriveeGPS } = useContext(AppContext);
 
@@ -131,7 +139,7 @@ function DestParis() {
                         {lineDepartGPS.length > 0 ? (
                             <Marker
                                 position={[lineDepartGPS[1], lineDepartGPS[0]]}
-                                icon={pieceIcon}
+                                icon={hacheIcon}
                             >
                                 <Popup>Station Départ</Popup>
                             </Marker>
@@ -143,7 +151,7 @@ function DestParis() {
                                     lineArriveeGPS[1],
                                     lineArriveeGPS[0],
                                 ]}
-                                icon={liasseIcon}
+                                icon={hacheIcon}
                             >
                                 <Popup>Station Arrivée</Popup>
                             </Marker>
