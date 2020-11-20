@@ -42,7 +42,7 @@ function InteractiveMap() {
 
   return (
     <>
-      <Jumbotron fluid>
+      <Jumbotron style={{ backgroundColor: "#2DB5FE" }} fluid>
         <Container fluid>
           <h1 className="display-3" style={{ textAlign: "center" }}>
             Welcome to RaidAdvisor
