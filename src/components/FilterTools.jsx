@@ -29,10 +29,6 @@ export default function Filtertools({
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState({});
   const [networks, setNetworks] = useState([]);
-  // const [metro, setMetro] = useState([]);
-  // const [bus, setBus] = useState([]);
-  // const [rer, setRer] = useState([]);
-  // const [tram, setTram] = useState([]);
   const [checkMetro, setCheckMetro] = useState(true);
   const [checkBus, setCheckBus] = useState(true);
   const [checkRer, setCheckRer] = useState(true);
@@ -85,7 +81,7 @@ export default function Filtertools({
   }, [selectedLine]);
 
   const onSelectedLine = (e) => {
-    setSelectedLine(e.target.value);
+    tag !== "Bordeaux" ? setSelectedLine(e.target.value) : setSelectedLine("");
   };
 
   if (isError) {
@@ -219,12 +215,6 @@ export default function Filtertools({
                     />
                   </DropdownToggle>
                   <>{isReturn("")}</>
-
-                  {/* <UncontrolledCollapse
-                    toggler={`#${network.name}`}
-                >
-                    {isReturn(network.slug)}
-                </UncontrolledCollapse> */}
                 </UncontrolledButtonDropdown>
               </div>
             );
