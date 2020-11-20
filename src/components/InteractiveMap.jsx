@@ -58,11 +58,11 @@ function InteractiveMap() {
             </Jumbotron>
 
             <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <div style={{ width: "50%" }} className="App">
+                <div style={{ width: "60%" }} className="App">
                     <MapContainer
-                        style={{ height: "400px" }}
+                        style={{ height: "500px" }}
                         center={[47.3, 5]}
-                        zoom={4}
+                        zoom={5}
                         scrollWheelZoom={false}
                     >
                         <TileLayer
@@ -145,7 +145,7 @@ function InteractiveMap() {
                 </div>
                 <div
                     style={{
-                        width: "25%",
+                        width: "20%",
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
