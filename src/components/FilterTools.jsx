@@ -39,7 +39,6 @@ export default function Filtertools({
     useEffect(() => {
         try {
             setNetworks(getCurrentNetworks);
-            console.log(getCurrentNetworks);
             if (tag === "Paris") {
                 setCheckMetro(!checkMetro);
                 setCheckBus(!checkBus);
@@ -100,14 +99,12 @@ export default function Filtertools({
     }
 
     function isCheck(elmt) {
-        console.log(elmt);
         switch (elmt) {
             case "metro":
                 setCheckMetro(!checkMetro);
                 setSelectedNetwork(metroAPI.data, "bus");
                 break;
             case "bus":
-                console.log(busAPI.data);
                 setCheckBus(!checkBus);
                 setSelectedNetwork(busAPI.data);
 
@@ -118,7 +115,6 @@ export default function Filtertools({
 
                 break;
             case "tram":
-                console.log(tramAPI.data);
                 setCheckTram(!checkTram);
                 setSelectedNetwork(tramAPI.data);
 
@@ -161,8 +157,7 @@ export default function Filtertools({
     }
 
     function isReturn(elmt) {
-        console.log(selectedNetwork);
-        return selectedNetwork.length === 0 ? null : (
+        return selectedNetwork.length === 0 ? null : tag === "Paris" ? (
             <Col>
                 <Input
                     type="select"
@@ -173,6 +168,21 @@ export default function Filtertools({
                 >
                     {selectedNetwork.map((e) => (
                         <option title={e.name}>{e.name}</option>
+                    ))}
+                </Input>
+            </Col>
+        ) : (
+            <Col>
+                <Input
+                    type="select"
+                    name="selectMulti"
+                    id="exampleSelectMulti"
+                    multiple
+                >
+                    {selectedNetwork.records.map((e) => (
+                        <option title={e.fields.nomarret}>
+                            {e.fields.nomarret}
+                        </option>
                     ))}
                 </Input>
             </Col>
