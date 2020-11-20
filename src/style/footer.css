@@ -1,13 +1,14 @@
 .footerMain {
   background-color: black;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
+  z-index: 999999;
 }
 
-p {
+.footerDesc {
   color: white;
 }
 

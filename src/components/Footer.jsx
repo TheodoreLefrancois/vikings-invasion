@@ -7,7 +7,7 @@ import "../style/footer.css";
 function Footer() {
   return (
     <div className="footerMain">
-      <p>
+      <p className="footerDesc">
         <GiWaveSurfer /> From Biarritz with{" "}
         <BsHeartFill style={{ color: "red" }} /> by Romain, David, Theodore,
         Yoan and Malo <FaMountain />
