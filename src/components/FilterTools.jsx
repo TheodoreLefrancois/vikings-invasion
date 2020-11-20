@@ -70,6 +70,10 @@ export default function Filtertools() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedLine]);
 
+  const onSelectedLine = (e) => {
+    setSelectedLine(e.target.value);
+  };
+
   if (isError) {
     return (
       <Jumbotron fluid>
@@ -136,9 +140,6 @@ export default function Filtertools() {
     getDatas();
   }
 
-  const onSelectedLine = (e) => {
-    setSelectedLine(e.target.value);
-  };
   function isReturn(elmt) {
     switch (elmt) {
       case "metro":
