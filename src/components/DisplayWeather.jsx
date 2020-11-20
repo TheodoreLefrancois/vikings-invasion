@@ -10,18 +10,18 @@ function DisplayWeather({
 }) {
   return (
     <tr>
-      <th>{date}</th>
-      <th>
+      <td>{date}</td>
+      <td>
         <img
           src={`https://www.metaweather.com/static/img/weather/png/64/${img}.png`}
           alt={weath}
         />
-      </th>
-      <th>{winddir}</th>
-      <th>{`${Math.round(min)}°C`}</th>
-      <th>{`${Math.round(max)}°C`}</th>
-      <th>{`${humidity}%`}</th>
-      <th>{fiability}</th>
+      </td>
+      <td>{winddir}</td>
+      <td>{`${Math.round(min)}°C`}</td>
+      <td>{`${Math.round(max)}°C`}</td>
+      <td>{`${humidity}%`}</td>
+      <td>{fiability}</td>
     </tr>
   );
 }
