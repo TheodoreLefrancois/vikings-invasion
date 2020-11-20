@@ -1,0 +1,18 @@
+.footerMain {
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 999999;
+}
+
+.footerDesc {
+  color: white;
+}
+
+#root {
+  position: bottom relative;
+  /* min-height: 100vh; */
+}
