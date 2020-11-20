@@ -5,7 +5,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import viking from "../image/viking_PNG10.png";
 import cible from "../image/cible2.png";
 import MapLegend from "./MapLegend";
-import { Button, Container, Jumbotron } from "reactstrap";
+import { Button, Col, Container, Jumbotron, Row } from "reactstrap";
 import glass from "../image/sunglasses_PNG95.png";
 import { Link } from "react-router-dom";
 
@@ -57,16 +57,23 @@ function InteractiveMap() {
                 </Container>
             </Jumbotron>
 
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-around",
-                }}
+            <Row
+                /* sm={8}
+        md={7}
+        xl={8} */
+                className="mapAndLegend"
+                /* style={{ display: "flex", justifyContent: "space-around" }} */
             >
-                <div style={{ width: "60%" }} className="App">
+                <Col
+                    sm={10}
+                    md={10}
+                    lg={9}
+                    xl={9}
+                    className="container-fluid" /* style={{ width: "70%" }} className="mapOnly" */
+                >
                     <MapContainer
                         style={{ height: "500px" }}
-                        center={[46, 10]}
+                        center={[46, 5]}
                         zoom={5}
                         scrollWheelZoom={false}
                     >
@@ -147,18 +154,24 @@ function InteractiveMap() {
                             icon={best}
                         ></Marker>
                     </MapContainer>
-                </div>
-                <div
+                </Col>
+                <Col
+                    className="container-fluid"
+                    sm={10}
+                    md={5}
+                    lg={4}
+                    xl={2}
                     style={{
-                        width: "20%",
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
+                        paddingTop: "1em",
+                        paddingBottom: "2em",
                     }}
                 >
                     <MapLegend />
-                </div>
-            </div>
+                </Col>
+            </Row>
         </>
     );
 }
