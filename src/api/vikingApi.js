@@ -1,5 +1,5 @@
 import axios from "axios";
-import { networks } from "./staticApi";
+import { parisNetworks, bordeauxNetworks } from "./staticApi";
 
 const PARIS_BASE_URL = "http://restratpws.azurewebsites.net/api/";
 const BORDEAUX_BASE_URL = "https://opendata.bordeaux-metropole.fr/";
@@ -9,14 +9,14 @@ const BORDEAUX_BASE_URL = "https://opendata.bordeaux-metropole.fr/";
  */
 
 // *******************************************************
-//      Paris Lines
+// *     Paris Lines                                     *
 // *******************************************************
 
 /**
  * returns networks of Paris city (tram, bus, metro, rer)
  */
 export function getParisNetworks() {
-  return networks;
+  return parisNetworks;
 }
 
 export function getParisLines(network) {
@@ -66,6 +66,10 @@ export function getParisMissionsByStation(lineId, stationId, directionId) {
 // *******************************************************
 //      BORDEAUX
 // *******************************************************
+
+export function getBordeauxNetworks() {
+  return bordeauxNetworks;
+}
 
 export function getBordeauxTrams() {
   const url = BORDEAUX_BASE_URL.concat(

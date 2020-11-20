@@ -1,11 +1,13 @@
-import { useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
 
-// import RaidAdvisor from "../image/RaidAdvisor.jpg";
-// import Footer from "./Footer";
+import RaidAdvisor from "../image/RaidAdvisor.jpg";
+import { getParisNetworks } from "../api/vikingApi";
+import { getParisLines } from "../api/vikingApi";
+import Footer from "./Footer";
 import AppContext from "../Context";
 import Filtertools from "./FilterTools";
 
@@ -64,95 +66,136 @@ const hacheIcon = new Icon({
 });
 
 function DestParis() {
+  const [loading, setLoading] = useState(true);
+  const [busAPI, setBusAPI] = useState([]);
+  const [tramAPI, setTramAPI] = useState([]);
+  const [metroAPI, setMetroAPI] = useState([]);
+  const [rerAPI, setRerAPI] = useState([]);
+  const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const id = 615702;
   const { lineDepartGPS, lineArriveeGPS } = useContext(AppContext);
+  const tag = "Paris";
+
+  useEffect(() => {
+    const getDatas = async () => {
+      const bus = await getParisLines("bus");
+      setBusAPI(bus);
+      const tram = await getParisLines("tram");
+      setTramAPI(tram);
+      const metro = await getParisLines("metro");
+      setMetroAPI(metro);
+      const rer = await getParisLines("metro");
+      setRerAPI(rer);
+      const cityCurrentNetworks = getParisNetworks();
+      setNetworkStaticAPI(cityCurrentNetworks);
+      setLoading(!loading);
+    };
+    getDatas();
+  }, []);
 
   return (
-    <Container>
-      <Row>
-        <Col>
-          <h2>Here are the plans of Paris</h2>
-        </Col>
-        <Col>
-          <Link to="/">
-            <Button color="warning">Go back Home</Button>
-          </Link>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Filtertools />
-        </Col>
-        <Col>
-          <MapContainer
-            style={{ height: "600px", width: "800px" }}
-            center={[48.87, 2.28]}
-            zoom={13}
-            scrollWheelZoom={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[48.864824, 2.334595]} icon={louvreIcon}>
-              <Popup>
-                Le louvre! <br /> Moulte argent et or
-              </Popup>
-            </Marker>
+    <>
+      <Container>
+        <Row className="py-3 align-items-center">
+          <Col sm={{ size: "auto", offset: 1 }}>
+            <img src={RaidAdvisor} alt="RaidAdvisor logo"></img>
+          </Col>
+          <Col>
+            <h2>Here are the plans of Paris</h2>
+          </Col>
+          <Col>
+            <Link to="/">
+              <Button color="warning">Go back Home</Button>
+            </Link>
+          </Col>
+        </Row>
 
-            <Marker position={[48.875, 2.33]} icon={ringIcon}>
-              <Popup>
-                Place vendôme <br /> Joillerie
-              </Popup>
-            </Marker>
-
-            <Marker position={[48.875, 2.31]} icon={elyzeePalaceIcon}>
-              <Popup>
-                Palais de l'Elysée <br /> Oeuvres d'art
-              </Popup>
-            </Marker>
-
-            <Marker position={[48.892, 2.24]} icon={archeIcon}>
-              <Popup>
-                La grande Arche <br /> Argent
-              </Popup>
-            </Marker>
-
-            <Marker position={[48.85, 2.326]} icon={pieceIcon}>
-              <Popup>
-                Banque de france <br /> Argent
-              </Popup>
-            </Marker>
-
-            <Marker position={[48.863, 2.276]} icon={liasseIcon}>
-              <Popup>
-                16e Arrondissement <br /> Nobles
-              </Popup>
-            </Marker>
-
-            {/* Ligne Bus */}
-            {lineDepartGPS.length > 0 ? (
-              <Marker
-                position={[lineDepartGPS[1], lineDepartGPS[0]]}
-                icon={hacheIcon}
-              >
-                <Popup>Station Départ</Popup>
+        <Row>
+          {loading ? (
+            <p>Loading</p>
+          ) : (
+            <Col>
+              <Filtertools
+                getCurrentNetworks={networkStaticAPI}
+                busAPI={busAPI}
+                tramAPI={tramAPI}
+                metroAPI={metroAPI}
+                rerAPI={rerAPI}
+                tag={tag}
+              />
+            </Col>
+          )}
+          <Col>
+            <MapContainer
+              style={{ height: "600px", width: "800px" }}
+              center={[48.87, 2.28]}
+              zoom={13}
+              scrollWheelZoom={false}
+            >
+              <TileLayer
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[48.864824, 2.334595]} icon={louvreIcon}>
+                <Popup>
+                  Le louvre! <br /> Moulte argent et or
+                </Popup>
               </Marker>
-            ) : null}
-
-            {lineArriveeGPS.length > 0 ? (
-              <Marker
-                position={[lineArriveeGPS[1], lineArriveeGPS[0]]}
-                icon={hacheIcon}
-              >
-                <Popup>Station Arrivée</Popup>
+              <Marker position={[48.875, 2.33]} icon={ringIcon}>
+                <Popup>
+                  Place vendôme <br /> Joillerie
+                </Popup>
               </Marker>
-            ) : null}
-          </MapContainer>
-        </Col>
-      </Row>
-    </Container>
+
+              <Marker position={[48.875, 2.31]} icon={elyzeePalaceIcon}>
+                <Popup>
+                  Palais de l'Elysée <br /> Oeuvres d'art
+                </Popup>
+              </Marker>
+
+              <Marker position={[48.892, 2.24]} icon={archeIcon}>
+                <Popup>
+                  La grande Arche <br /> Argent
+                </Popup>
+              </Marker>
+
+              <Marker position={[48.85, 2.326]} icon={pieceIcon}>
+                <Popup>
+                  Banque de france <br /> Argent
+                </Popup>
+              </Marker>
+
+              <Marker position={[48.863, 2.276]} icon={liasseIcon}>
+                <Popup>
+                  16e Arrondissement <br /> Nobles
+                </Popup>
+              </Marker>
+
+              {/* Ligne Bus */}
+              {lineDepartGPS.length > 0 ? (
+                <Marker
+                  position={[lineDepartGPS[1], lineDepartGPS[0]]}
+                  icon={hacheIcon}
+                >
+                  <Popup>Station Départ</Popup>
+                </Marker>
+              ) : null}
+
+              {lineArriveeGPS.length > 0 ? (
+                <Marker
+                  position={[lineArriveeGPS[1], lineArriveeGPS[0]]}
+                  icon={hacheIcon}
+                >
+                  <Popup>Station Arrivée</Popup>
+                </Marker>
+              ) : null}
+            </MapContainer>
+          </Col>
+        </Row>
+      </Container>
+      <Footer />
+    </>
   );
 }
 
