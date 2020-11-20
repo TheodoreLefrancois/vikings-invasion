@@ -16,12 +16,7 @@ import {
 import AppContext from "../Context";
 
 export default function Filtertools() {
-    const {
-        lineDepartGPS,
-        setLineDepartGPS,
-        lineArriveeGPS,
-        setLineArriveeGPS,
-    } = useContext(AppContext);
+    const { setLineDepartGPS, setLineArriveeGPS } = useContext(AppContext);
 
     const [loading, setLoading] = useState(true);
     const [isError, setIsError] = useState(false);
@@ -52,26 +47,25 @@ export default function Filtertools() {
 
     useEffect(() => {
         if (selectedLine.length > 0) {
+            setLineDepartGPS([]);
+            setLineArriveeGPS([]);
+
             const points = selectedLine.split("/");
 
-            console.log(points);
+            // console.log(points);
             const getDataOne = async () => {
                 const pointOne = await getGeolocalisation(points[0]);
-                console.log(pointOne.data.features[0].geometry.coordinates);
+
                 setLineDepartGPS(
-                    lineDepartGPS.concat(
-                        pointOne.data.features[0].geometry.coordinates
-                    )
+                    pointOne.data.features[0].geometry.coordinates
                 );
             };
 
             const getDataTwo = async () => {
                 const pointTwo = await getGeolocalisation(points[1]);
-                console.log(pointTwo.data.features[1].geometry.coordinates);
+
                 setLineArriveeGPS(
-                    lineArriveeGPS.concat(
-                        pointTwo.data.features[1].geometry.coordinates
-                    )
+                    pointTwo.data.features[1].geometry.coordinates
                 );
             };
             getDataOne();
@@ -89,7 +83,6 @@ export default function Filtertools() {
             </Jumbotron>
         );
     }
-<<<<<<< HEAD
 
     function isCheck(elmt) {
         switch (elmt) {
@@ -254,42 +247,4 @@ export default function Filtertools() {
             )}
         </>
     );
-=======
-  }
-
-  return (
-    <>
-      {loading ? (
-        <div>
-          <Spinner type="grow" color="primary" className="m-5" />
-        </div>
-      ) : (
-        <div>
-          {networks.map((network) => {
-            return (
-              <div key={network.id} className="inline-block py-1">
-                <Button
-                  className="col-12 btn btn-info"
-                  id={network.name}
-                  style={{ marginBottom: "1rem" }}
-                  onClick={() => isCheck(network.slug)}
-                >
-                  <img
-                    src={network.image}
-                    alt={network.name}
-                    className="rounded-circle"
-                    style={{ height: "50px" }}
-                  />
-                </Button>
-                <UncontrolledCollapse toggler={`#${network.name}`}>
-                  {isReturn(network.slug)}
-                </UncontrolledCollapse>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </>
-  );
->>>>>>> 15c6a55d2870fd7f8b1943eb7170a4d19cfff8d6
 }

@@ -82,6 +82,6 @@ export function getGeolocalisation(adress) {
 }
 
 function axiosRequest(url) {
-    console.log(url);
+    // console.log(url);
     return axios.get(url);
 }
