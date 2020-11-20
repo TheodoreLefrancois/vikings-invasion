@@ -1,5 +1,5 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-// import { Icon } from "leaflet";
+import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
 import {
     Button,
@@ -20,7 +20,9 @@ import Filtertools from "./FilterTools";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import Footer from "./Footer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AppContext from "../Context";
+import ProgressHack from "./ProgressHack";
 
 // icons
 // import louvre from "../image/louvre.png";
@@ -30,6 +32,7 @@ import { useEffect, useState } from "react";
 // import piece from "../image/piece.png";
 // import liasse from "../image/liasse.png";
 // import Footer from "./Footer";
+import hache from "../image/hache.png";
 
 // const louvreIcon = new Icon({
 //   iconUrl: louvre,
@@ -69,9 +72,22 @@ import { useEffect, useState } from "react";
 //   iconSize: [64, 64], // size of the icon
 //   iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
 // });
+
+const hacheIcon = new Icon({
+    iconUrl: hache,
+    iconSize: [64, 64], // size of the icon
+    iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
+});
 const GPSPos = [44.8333, -0.5667];
 
 function DestBordeaux(props) {
+    const {
+        lineDepartGPS,
+        lineArriveeGPS,
+        displayPage,
+        setDisplayPage,
+    } = useContext(AppContext);
+
     const [loading, setLoading] = useState(true);
     const [isDisplay, setIsDisplay] = useState(true);
     const [busAPI, setBusAPI] = useState([]);
@@ -79,8 +95,8 @@ function DestBordeaux(props) {
     const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
     const tag = "Bordeaux";
     const id = 580778;
-
     useEffect(() => {
+        setTimeout(() => setDisplayPage(true), 2300);
         const getDatas = async () => {
             const bus = await getBordeauxBus();
             setBusAPI(bus);
@@ -89,11 +105,12 @@ function DestBordeaux(props) {
             const cityCurrentNetworks = getBordeauxNetworks();
             setNetworkStaticAPI(cityCurrentNetworks);
             setLoading(!loading);
+            console.log(tram, bus);
         };
         getDatas();
     }, []);
 
-    return (
+    return displayPage ? (
         <>
             <Container>
                 <Row className="py-2 align-items-center justify-content-center">
@@ -197,6 +214,8 @@ function DestBordeaux(props) {
             </Container>
             <Footer />
         </>
+    ) : (
+        <ProgressHack />
     );
 }
 
