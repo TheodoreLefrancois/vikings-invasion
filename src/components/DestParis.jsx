@@ -97,7 +97,7 @@ function DestParis() {
   return (
     <>
       <Container>
-        <Row className="py-3 align-items-center">
+        <Row className="py-2 align-items-center">
           <Col sm={{ size: "auto", offset: 1 }}>
             <img src={RaidAdvisor} alt="RaidAdvisor logo"></img>
           </Col>
