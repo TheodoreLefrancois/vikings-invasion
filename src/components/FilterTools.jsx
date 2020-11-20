@@ -166,6 +166,7 @@ export default function Filtertools() {
               name="selectMulti"
               id="exampleSelectMulti"
               multiple
+              onClick={onSelectedLine}
             >
               {bus.map((e) => (
                 <option title={e.name}>{e.name}</option>
@@ -181,6 +182,7 @@ export default function Filtertools() {
               name="selectMulti"
               id="exampleSelectMulti"
               multiple
+              onClick={onSelectedLine}
             >
               {rer.map((e) => (
                 <option title={e.name}>{e.name}</option>
@@ -196,6 +198,7 @@ export default function Filtertools() {
               name="selectMulti"
               id="exampleSelectMulti"
               multiple
+              onClick={onSelectedLine}
             >
               {tram.map((e) => (
                 <option title={e.name}>{e.name}</option>

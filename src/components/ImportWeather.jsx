@@ -14,16 +14,16 @@ function ImportWeather(props) {
     });
   });
   return (
-    <Table>
+    <Table style={{ width: "40%" }}>
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Sky-state</th>
-          <th>Wind-direction</th>
-          <th>Min</th>
-          <th>Max</th>
-          <th>Humidity</th>
-          <th>Fiability</th>
+          <td>Date</td>
+          <td>Sky-state</td>
+          <td>Wind-direction</td>
+          <td>Min</td>
+          <td>Max</td>
+          <td>Humidity</td>
+          <td>Fiability</td>
         </tr>
       </thead>
       <tbody>

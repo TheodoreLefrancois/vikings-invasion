@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, UncontrolledCollapse } from "reactstrap";
 import Footer from "./Footer";
 import ImportWeather from "./ImportWeather";
 
@@ -11,7 +11,17 @@ function DestBordeaux(props) {
       <Link to="/">
         <Button color="warning">Go back Home</Button>
       </Link>
-      <ImportWeather id={id} />
+      <Button
+        outline
+        color="danger"
+        id="toggler"
+        style={{ marginBottom: "1rem" }}
+      >
+        Meteo
+      </Button>
+      <UncontrolledCollapse toggler="#toggler">
+        <ImportWeather id={id} />
+      </UncontrolledCollapse>
       <Footer />
     </>
   );
