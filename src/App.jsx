@@ -1,6 +1,6 @@
 import Footer from "./components/Footer";
 import InteractiveMap from "./components/InteractiveMap";
-import MapLegend from "./components/MapLegend";
+
 import Navigation from "./components/navigation";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Navigation />
       <InteractiveMap />
-      <MapLegend />
+
       <Footer />
     </div>
   );

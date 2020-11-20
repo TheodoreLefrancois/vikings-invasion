@@ -79,6 +79,13 @@ export function getBordeauxTrams() {
   return axiosRequest(url);
 }
 
+export function getGeolocalisation(adress) {
+  const url = "https://api-adresse.data.gouv.fr/search/?q="
+    .concat(adress)
+    .concat(" paris");
+  return axiosRequest(url);
+}
+
 export function getBordeauxBus() {
   const url = BORDEAUX_BASE_URL.concat(
     "/api/records/1.0/search/?dataset=tb_arret_p&q=&facet=ville&facet=codepost&facet=nature&facet=lignedes&facet=mobilie1&facet=reseau&refine.ville=BORDEAUX&refine.codepost=33000&refine.reseau=BUS"
@@ -87,6 +94,6 @@ export function getBordeauxBus() {
 }
 
 function axiosRequest(url) {
-  console.log(url);
+  // console.log(url);
   return axios.get(url);
 }

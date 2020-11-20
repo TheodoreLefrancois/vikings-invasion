@@ -1,7 +1,8 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 // import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
-import { Button, Col, Container, Row } from "reactstrap";
+import { Button, Col, Container, Row, UncontrolledCollapse } from "reactstrap";
+import ImportWeather from "./ImportWeather";
 
 import {
   getBordeauxBus,
@@ -63,12 +64,13 @@ import { useEffect, useState } from "react";
 // });
 const GPSPos = [44.8333, -0.5667];
 
-function DestBordeaux() {
+function DestBordeaux(props) {
   const [loading, setLoading] = useState(true);
   const [busAPI, setBusAPI] = useState([]);
   const [tramAPI, setTramAPI] = useState([]);
   const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
   const tag = "Bordeaux";
+  const id = 580778;
 
   useEffect(() => {
     const getDatas = async () => {
@@ -161,6 +163,20 @@ function DestBordeaux() {
             </MapContainer>
           </Col>
         </Row>
+        <Link to="/">
+          <Button color="warning">Go back Home</Button>
+        </Link>
+        <Button
+          outline
+          color="danger"
+          id="toggler"
+          style={{ marginBottom: "1rem" }}
+        >
+          Meteo
+        </Button>
+        <UncontrolledCollapse toggler="#toggler">
+          <ImportWeather id={id} />
+        </UncontrolledCollapse>
       </Container>
       <Footer />
     </>

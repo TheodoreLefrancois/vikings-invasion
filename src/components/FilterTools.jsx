@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   Button,
   Spinner,
@@ -7,6 +7,8 @@ import {
   UncontrolledCollapse,
   Input,
 } from "reactstrap";
+import { getGeolocalisation } from "../api/vikingApi";
+import AppContext from "../Context";
 
 export default function Filtertools({
   getCurrentNetworks,
@@ -16,6 +18,7 @@ export default function Filtertools({
   rerAPI,
   tag,
 }) {
+  const { setLineDepartGPS, setLineArriveeGPS } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState({});
@@ -29,9 +32,17 @@ export default function Filtertools({
   const [checkRer, setCheckRer] = useState(true);
   const [checkTram, setCheckTram] = useState(true);
 
+  const [selectedLine, setSelectedLine] = useState("");
+
   useEffect(() => {
     try {
       setNetworks(getCurrentNetworks);
+      if (tag === "Paris") {
+        setCheckMetro(!checkMetro);
+        setCheckBus(!checkBus);
+        setCheckRer(!checkRer);
+        setCheckTram(!checkTram);
+      }
       setLoading(!loading);
     } catch (err) {
       setIsError(true);
@@ -40,6 +51,35 @@ export default function Filtertools({
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedLine.length > 0) {
+      setLineDepartGPS([]);
+      setLineArriveeGPS([]);
+
+      const points = selectedLine.split("/");
+
+      // console.log(points);
+      const getDataOne = async () => {
+        const pointOne = await getGeolocalisation(points[0]);
+
+        setLineDepartGPS(pointOne.data.features[0].geometry.coordinates);
+      };
+
+      const getDataTwo = async () => {
+        const pointTwo = await getGeolocalisation(points[1]);
+
+        setLineArriveeGPS(pointTwo.data.features[1].geometry.coordinates);
+      };
+      getDataOne();
+      getDataTwo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedLine]);
+
+  const onSelectedLine = (e) => {
+    setSelectedLine(e.target.value);
+  };
 
   if (isError) {
     return (
@@ -114,6 +154,7 @@ export default function Filtertools({
                 name="selectMulti"
                 id="exampleSelectMulti"
                 multiple
+                onClick={onSelectedLine}
               >
                 {metro.map((e) => (
                   <option title={e.name}>{e.name}</option>
@@ -132,6 +173,7 @@ export default function Filtertools({
                 name="selectMulti"
                 id="exampleSelectMulti"
                 multiple
+                onClick={onSelectedLine}
               >
                 {bus.map((e) => (
                   <option title={e.name}>{e.name}</option>
@@ -165,6 +207,7 @@ export default function Filtertools({
                 name="selectMulti"
                 id="exampleSelectMulti"
                 multiple
+                onClick={onSelectedLine}
               >
                 {rer.map((e) => (
                   <option title={e.name}>{e.name}</option>
@@ -183,6 +226,7 @@ export default function Filtertools({
                 name="selectMulti"
                 id="exampleSelectMulti"
                 multiple
+                onClick={onSelectedLine}
               >
                 {tram.map((e) => (
                   <option title={e.name}>{e.name}</option>
@@ -205,10 +249,6 @@ export default function Filtertools({
               </Input>
             </Col>
           );
-        } else {
-          <Col>
-            <h2>OUPS !!! an error as occured ...</h2>
-          </Col>;
         }
         break;
       default:
@@ -223,12 +263,13 @@ export default function Filtertools({
           <Spinner type="grow" color="primary" className="m-5" />
         </div>
       ) : (
-        <div>
+        <div className="py-3">
           {networks.map((network) => {
             return (
-              <div key={network.id} className="inline-block py-1">
+              <div key={network.id} className="inline-block py-2">
                 <Button
-                  className="col-12 btn btn-info"
+                  className="col-12 border-0 btn-info"
+                  color="primary"
                   id={network.name}
                   style={{ marginBottom: "1rem" }}
                   onClick={() => isCheck(network.slug)}

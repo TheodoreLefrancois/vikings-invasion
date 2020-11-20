@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
-import Filtertools from "./FilterTools";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import { getParisNetworks } from "../api/vikingApi";
 import { getParisLines } from "../api/vikingApi";
+import Footer from "./Footer";
+import AppContext from "../Context";
+import Filtertools from "./FilterTools";
 
 // icons
 import louvre from "../image/louvre.png";
@@ -16,7 +18,7 @@ import elyzeePalace from "../image/Elysee-Palace.png";
 import arche from "../image/arche.png";
 import piece from "../image/piece.png";
 import liasse from "../image/liasse.png";
-import Footer from "./Footer";
+import hache from "../image/hache.png";
 
 const louvreIcon = new Icon({
   iconUrl: louvre,
@@ -57,6 +59,12 @@ const liasseIcon = new Icon({
   iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
 });
 
+const hacheIcon = new Icon({
+  iconUrl: hache,
+  iconSize: [64, 64], // size of the icon
+  iconAnchor: [48.863, 2.276], // point of the icon which will correspond to marker's location
+});
+
 function DestParis() {
   const [loading, setLoading] = useState(true);
   const [busAPI, setBusAPI] = useState([]);
@@ -64,6 +72,9 @@ function DestParis() {
   const [metroAPI, setMetroAPI] = useState([]);
   const [rerAPI, setRerAPI] = useState([]);
   const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const id = 615702;
+  const { lineDepartGPS, lineArriveeGPS } = useContext(AppContext);
   const tag = "Paris";
 
   useEffect(() => {
@@ -131,7 +142,6 @@ function DestParis() {
                   Le louvre! <br /> Moulte argent et or
                 </Popup>
               </Marker>
-
               <Marker position={[48.875, 2.33]} icon={ringIcon}>
                 <Popup>
                   Place vendôme <br /> Joillerie
@@ -161,6 +171,25 @@ function DestParis() {
                   16e Arrondissement <br /> Nobles
                 </Popup>
               </Marker>
+
+              {/* Ligne Bus */}
+              {lineDepartGPS.length > 0 ? (
+                <Marker
+                  position={[lineDepartGPS[1], lineDepartGPS[0]]}
+                  icon={hacheIcon}
+                >
+                  <Popup>Station Départ</Popup>
+                </Marker>
+              ) : null}
+
+              {lineArriveeGPS.length > 0 ? (
+                <Marker
+                  position={[lineArriveeGPS[1], lineArriveeGPS[0]]}
+                  icon={hacheIcon}
+                >
+                  <Popup>Station Arrivée</Popup>
+                </Marker>
+              ) : null}
             </MapContainer>
           </Col>
         </Row>
