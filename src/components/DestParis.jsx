@@ -27,14 +27,14 @@ function DestParis() {
         lineArriveeGPS,
         setLineDepartGPS,
         setLineArriveeGPS,
+        displayPage,
+        setDisplayPage,
     } = useContext(AppContext);
-    const [displayPage, setdisplayPage] = useState(true);
     const tag = "Paris";
 
     useEffect(() => {
         setLineArriveeGPS([]);
         setLineDepartGPS([]);
-        setTimeout(() => setdisplayPage(true), 2300);
         const getDatas = async () => {
             const bus = await getParisLines("bus");
             setBusAPI(bus);
@@ -48,7 +48,6 @@ function DestParis() {
             setNetworkStaticAPI(cityCurrentNetworks);
             setLoading(!loading);
         };
-        console.log(lineDepartGPS, lineArriveeGPS);
         getDatas();
     }, []);
 
@@ -64,7 +63,12 @@ function DestParis() {
                     </Col>
                     <Col>
                         <Link to="/">
-                            <Button color="warning">Go back Home</Button>
+                            <Button
+                                color="warning"
+                                onClick={() => setDisplayPage(false)}
+                            >
+                                Go back Home
+                            </Button>
                         </Link>
                     </Col>
                 </Row>

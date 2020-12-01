@@ -12,11 +12,14 @@ import Filtertools from "./FilterTools";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import Footer from "./Footer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AppContext from "../Context";
+import ProgressHack from "./ProgressHack";
 
 const GPSPos = [44.8333, -0.5667];
 
 function DestBordeaux(props) {
+    const { displayPage, setDisplayPage } = useContext(AppContext);
     const [loading, setLoading] = useState(true);
     const [isDisplay, setIsDisplay] = useState(true);
     const [busAPI, setBusAPI] = useState([]);
@@ -38,7 +41,7 @@ function DestBordeaux(props) {
         getDatas();
     }, []);
 
-    return (
+    return displayPage ? (
         <>
             <Container>
                 <Row className="py-2 align-items-center justify-content-center">
@@ -50,7 +53,12 @@ function DestBordeaux(props) {
                     </Col>
                     <Col className="col-3">
                         <Link to="/">
-                            <Button color="warning">Go back Home</Button>
+                            <Button
+                                color="warning"
+                                onClick={() => setDisplayPage(false)}
+                            >
+                                Go back Home
+                            </Button>
                         </Link>
                     </Col>
                 </Row>
@@ -63,52 +71,57 @@ function DestBordeaux(props) {
                         <h5>{isDisplay ? "Display weather" : "Display map"}</h5>
                     </Button>
                 </Row>
-                <Row
-                    className="d-flex flex-column align-items-center"
-                    style={{ display: isDisplay ? "" : "none" }}
-                >
-                    {loading ? (
-                        <p>Loading</p>
-                    ) : (
+                {isDisplay ? (
+                    <Row
+                        className="d-flex flex-column align-items-center"
+                        style={{ display: isDisplay ? "" : "none" }}
+                    >
+                        {loading ? (
+                            <p>Loading</p>
+                        ) : (
+                            <Row>
+                                <Filtertools
+                                    getCurrentNetworks={networkStaticAPI}
+                                    busAPI={busAPI}
+                                    tramAPI={tramAPI}
+                                    tag={tag}
+                                />
+                            </Row>
+                        )}
                         <Row>
-                            <Filtertools
-                                getCurrentNetworks={networkStaticAPI}
-                                busAPI={busAPI}
-                                tramAPI={tramAPI}
-                                tag={tag}
-                            />
+                            <MapContainer
+                                style={{ height: "600px", width: "800px" }}
+                                center={GPSPos}
+                                zoom={13}
+                                scrollWheelZoom={false}
+                            >
+                                <TileLayer
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                            </MapContainer>
                         </Row>
-                    )}
-                    <Row>
-                        <MapContainer
-                            style={{ height: "600px", width: "800px" }}
-                            center={GPSPos}
-                            zoom={13}
-                            scrollWheelZoom={false}
-                        >
-                            <TileLayer
-                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-                        </MapContainer>
                     </Row>
-                </Row>
-                <Row style={{ display: isDisplay ? "none" : "" }}>
-                    <Col className="w-100">
-                        <Navbar
-                            className="text-white d-flex justify-content-center"
-                            color="danger"
-                        >
-                            <h5 className="">
-                                <strong>Meteo</strong>
-                            </h5>
-                        </Navbar>
-                        <ImportWeather id={id} />
-                    </Col>
-                </Row>
+                ) : (
+                    <Row style={{ display: isDisplay ? "none" : "" }}>
+                        <Col className="w-100">
+                            <Navbar
+                                className="text-white d-flex justify-content-center"
+                                color="danger"
+                            >
+                                <h5 className="">
+                                    <strong>Meteo</strong>
+                                </h5>
+                            </Navbar>
+                            <ImportWeather id={id} />
+                        </Col>
+                    </Row>
+                )}
             </Container>
             <Footer />
         </>
+    ) : (
+        <ProgressHack />
     );
 }
 
