@@ -3,16 +3,17 @@ import { useState, useEffect } from "react";
 import { Col, Table } from "reactstrap";
 import DisplayWeather from "./DisplayWeather";
 
-function ImportWeather(props) {
+function ImportWeather{id}) {
     const [weather, setWeather] = useState([]);
 
     useEffect(() => {
         Axios.get(
-            `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${props.id}/`
+            `https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${id}/`
         ).then((res) => {
             setWeather(res.data.consolidated_weather);
         });
-    }, []);
+    }, [id]);
+    
     return (
         <Col className="w-100">
             <Table style={{ width: "100%" }}>
