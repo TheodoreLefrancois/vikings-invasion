@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { Icon } from "leaflet/src/layer/marker/Icon";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import viking from "../image/viking_PNG10.png";
@@ -8,34 +7,34 @@ import { Button, Col, Container, Jumbotron, Row } from "reactstrap";
 import glass from "../image/sunglasses_PNG95.png";
 import { Link } from "react-router-dom";
 
+const head = new Icon({
+    iconUrl: viking,
+    iconSize: [60, 50], // size of the icon
+    shadowSize: [50, 64], // size of the shadow
+    iconAnchor: [52.520007, 13.404954], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62], // the same for the shadow
+    popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+});
+
+const best = new Icon({
+    iconUrl: glass,
+    iconSize: [60, 50], // size of the icon
+    shadowSize: [50, 64], // size of the shadow
+    iconAnchor: [52.520007, 13.404954], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62], // the same for the shadow
+    popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+});
+
+const victim = new Icon({
+    iconUrl: cible,
+    iconSize: [60, 50], // size of the icon
+    shadowSize: [50, 64], // size of the shadow
+    iconAnchor: [44.837789, -0.57918], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62], // the same for the shadow
+    popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+});
+
 function InteractiveMap() {
-    const head = new Icon({
-        iconUrl: viking,
-        iconSize: [60, 50], // size of the icon
-        shadowSize: [50, 64], // size of the shadow
-        iconAnchor: [52.520007, 13.404954], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62], // the same for the shadow
-        popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-    });
-
-    const best = new Icon({
-        iconUrl: glass,
-        iconSize: [60, 50], // size of the icon
-        shadowSize: [50, 64], // size of the shadow
-        iconAnchor: [52.520007, 13.404954], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62], // the same for the shadow
-        popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-    });
-
-    const victim = new Icon({
-        iconUrl: cible,
-        iconSize: [60, 50], // size of the icon
-        shadowSize: [50, 64], // size of the shadow
-        iconAnchor: [44.837789, -0.57918], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62], // the same for the shadow
-        popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
-    });
-
     return (
         <>
             <Jumbotron style={{ backgroundColor: "#2DB5FE" }} fluid>
