@@ -55,6 +55,10 @@ function DestParis() {
 
         setLineArriveeGPS([]);
         setLineDepartGPS([]);
+<<<<<<< HEAD
+=======
+        console.log("ok");
+>>>>>>> aca35999468c37178114a84df01f2a6a14861d83
     };
 
     return displayPage ? (
