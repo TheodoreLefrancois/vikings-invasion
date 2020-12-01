@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { Link } from "react-router-dom";
 import ParisMarker from "./ParisMarkers";
-import { Button, Col, Container, Navbar, Row, Table } from "reactstrap";
+import { Button, Col, Container, Navbar, Row } from "reactstrap";
 
 import RaidAdvisor from "../image/RaidAdvisor.jpg";
 import { getParisNetworks } from "../api/vikingApi";
@@ -22,11 +22,18 @@ function DestParis() {
     const [rerAPI, setRerAPI] = useState([]);
     const [networkStaticAPI, setNetworkStaticAPI] = useState([]);
     const id = 615702;
-    const { lineDepartGPS, lineArriveeGPS } = useContext(AppContext);
+    const {
+        lineDepartGPS,
+        lineArriveeGPS,
+        setLineDepartGPS,
+        setLineArriveeGPS,
+    } = useContext(AppContext);
     const [displayPage, setdisplayPage] = useState(true);
     const tag = "Paris";
 
     useEffect(() => {
+        setLineArriveeGPS([]);
+        setLineDepartGPS([]);
         setTimeout(() => setdisplayPage(true), 2300);
         const getDatas = async () => {
             const bus = await getParisLines("bus");

@@ -1,7 +1,6 @@
+import { useContext } from "react";
 import { Icon } from "leaflet/src/layer/marker/Icon";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-// import "../../node_modules/leaflet/dist/leaflet";
-// import Leaflet from "leaflet";
 import viking from "../image/viking_PNG10.png";
 import cible from "../image/cible2.png";
 import MapLegend from "./MapLegend";
@@ -10,10 +9,6 @@ import glass from "../image/sunglasses_PNG95.png";
 import { Link } from "react-router-dom";
 
 function InteractiveMap() {
-    // const icon = new Icon({
-    //     iconUrl: favicon,
-    // });
-
     const head = new Icon({
         iconUrl: viking,
         iconSize: [60, 50], // size of the icon

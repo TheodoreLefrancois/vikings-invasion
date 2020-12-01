@@ -1,3 +1,4 @@
+import { point } from "leaflet";
 import { useState, useEffect, useContext } from "react";
 import {
     Spinner,
@@ -59,7 +60,7 @@ export default function Filtertools({
 
             const points = selectedLine.split("/");
 
-            // console.log(points);
+            console.log(points);
             const getDataOne = async () => {
                 const pointOne = await getGeolocalisation(points[0]);
 
@@ -82,9 +83,9 @@ export default function Filtertools({
     }, [selectedLine]);
 
     const onSelectedLine = (e) => {
-        console.log(e);
+        console.log(tag, e);
         tag !== "Bordeaux"
-            ? setSelectedLine(e.target.value)
+            ? setSelectedLine(e.target.innerHTML)
             : setSelectedLine("");
     };
 
@@ -127,7 +128,6 @@ export default function Filtertools({
 
     if (checkMetro && tag === "Paris") {
         function getDatas() {
-            // setMetro(metroAPI.data);
             setCheckMetro(!checkMetro);
         }
         getDatas();
@@ -135,7 +135,6 @@ export default function Filtertools({
 
     if (checkBus) {
         function getDatas() {
-            // setBus(busAPI.data);
             setCheckBus(!checkBus);
         }
         getDatas();
@@ -143,7 +142,6 @@ export default function Filtertools({
 
     if (checkRer && tag === "Paris") {
         function getDatas() {
-            // setRer(rerAPI.data);
             setCheckRer(!checkRer);
         }
         getDatas();
@@ -151,7 +149,6 @@ export default function Filtertools({
 
     if (checkTram) {
         function getDatas() {
-            // setTram(tramAPI.data);
             setCheckTram(!checkTram);
         }
         getDatas();
@@ -201,15 +198,15 @@ export default function Filtertools({
                 <Container className="d-flex justify-content-around">
                     {networks.map((network) => {
                         return (
-                            <div className="py-1 col-3">
+                            <div key={network.id} className="py-1 col-3">
                                 <UncontrolledButtonDropdown
-                                    block
+                                    block="true"
                                     key={network.id}
                                     className="px-2"
                                     style={{ width: "150px" }}
                                 >
                                     <DropdownToggle
-                                        carret
+                                        carret="true"
                                         className="col-12 border-0 btn-info"
                                         color="primary"
                                         id={network.name}
