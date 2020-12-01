@@ -36,10 +36,16 @@ function DestBordeaux(props) {
             setTramAPI(tram);
             const cityCurrentNetworks = getBordeauxNetworks();
             setNetworkStaticAPI(cityCurrentNetworks);
-            setLoading(!loading);
+            setLoading(false);
         };
         getDatas();
     }, []);
+
+    const resetValues = () => {
+        setDisplayPage(false);
+
+        console.log("ok");
+    };
 
     return displayPage ? (
         <>
@@ -53,10 +59,7 @@ function DestBordeaux(props) {
                     </Col>
                     <Col className="col-3">
                         <Link to="/">
-                            <Button
-                                color="warning"
-                                onClick={() => setDisplayPage(false)}
-                            >
+                            <Button color="warning" onClick={resetValues}>
                                 Go back Home
                             </Button>
                         </Link>
