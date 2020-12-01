@@ -1,4 +1,3 @@
-import { point } from "leaflet";
 import { useState, useEffect, useContext } from "react";
 import {
     Spinner,
@@ -23,35 +22,18 @@ export default function Filtertools({
 }) {
     const { setLineDepartGPS, setLineArriveeGPS } = useContext(AppContext);
 
-    const [loading, setLoading] = useState(true);
-    const [isError, setIsError] = useState(false);
-    const [error, setError] = useState({});
-    const [networks, setNetworks] = useState([]);
-    const [checkMetro, setCheckMetro] = useState(true);
-    const [checkBus, setCheckBus] = useState(true);
-    const [checkRer, setCheckRer] = useState(true);
-    const [checkTram, setCheckTram] = useState(true);
+    const [loading] = useState(false);
+    const [isError] = useState(false);
+    const [error] = useState({});
+    const [networks] = useState(getCurrentNetworks);
+
+    const [checkMetro, setCheckMetro] = useState(tag === "Paris");
+    const [checkBus, setCheckBus] = useState(tag === "Paris");
+    const [checkRer, setCheckRer] = useState(tag === "Paris");
+    const [checkTram, setCheckTram] = useState(tag === "Paris");
     const [selectedNetwork, setSelectedNetwork] = useState([]);
 
     const [selectedLine, setSelectedLine] = useState("");
-
-    useEffect(() => {
-        try {
-            setNetworks(getCurrentNetworks);
-            if (tag === "Paris") {
-                setCheckMetro(!checkMetro);
-                setCheckBus(!checkBus);
-                setCheckRer(!checkRer);
-                setCheckTram(!checkTram);
-            }
-            setLoading(!loading);
-        } catch (err) {
-            setIsError(true);
-            setError(err);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
 
     useEffect(() => {
         if (selectedLine.length > 0) {
@@ -60,7 +42,6 @@ export default function Filtertools({
 
             const points = selectedLine.split("/");
 
-            console.log(points);
             const getDataOne = async () => {
                 const pointOne = await getGeolocalisation(points[0]);
 
@@ -83,7 +64,6 @@ export default function Filtertools({
     }, [selectedLine]);
 
     const onSelectedLine = (e) => {
-        console.log(tag, e);
         tag !== "Bordeaux"
             ? setSelectedLine(e.target.innerHTML)
             : setSelectedLine("");
