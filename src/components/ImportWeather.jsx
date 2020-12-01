@@ -28,9 +28,10 @@ function ImportWeather(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {weather.map((x) => {
+                    {weather.map((x, i) => {
                         return (
                             <DisplayWeather
+                                key={i}
                                 weath={x.weather_state_name}
                                 img={x.weather_state_abbr}
                                 winddir={x.wind_direction_compass}
@@ -42,7 +43,6 @@ function ImportWeather(props) {
                             />
                         );
                     })}
-                    ;
                 </tbody>
             </Table>
         </Col>
