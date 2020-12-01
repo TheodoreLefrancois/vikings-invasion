@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Col, Table } from "reactstrap";
 import DisplayWeather from "./DisplayWeather";
 
-function ImportWeather{id}) {
+function ImportWeather({id}) {
     const [weather, setWeather] = useState([]);
 
     useEffect(() => {
