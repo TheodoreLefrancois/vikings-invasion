@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Col, Table } from "reactstrap";
 import DisplayWeather from "./DisplayWeather";
 
-function ImportWeather({id}) {
+function ImportWeather({ id }) {
     const [weather, setWeather] = useState([]);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ function ImportWeather({id}) {
             setWeather(res.data.consolidated_weather);
         });
     }, [id]);
-    
+
     return (
         <Col className="w-100">
             <Table style={{ width: "100%" }}>
