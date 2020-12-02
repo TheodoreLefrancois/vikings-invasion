@@ -13,6 +13,7 @@ function ImportWeather({ id }) {
             setWeather(res.data.consolidated_weather);
         });
     }, [id]);
+
     return (
         <Col className="w-100">
             <Table style={{ width: "100%" }}>
